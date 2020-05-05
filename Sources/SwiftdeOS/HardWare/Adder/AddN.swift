@@ -7,6 +7,7 @@
 
 import Foundation
 
+// TODO: make as template
 extension Adder {
     
     static func Add16(a: Bit16, b: Bit16) -> Bit16 {
