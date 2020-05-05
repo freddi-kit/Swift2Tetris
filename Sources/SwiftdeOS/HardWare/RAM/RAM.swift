@@ -1,5 +1,5 @@
 //
-//  FlipFlop.swift
+//  RAM.swift
 //  
 //
 //  Created by 秋勇紀 on 2020/05/05.
@@ -66,3 +66,60 @@ struct RAM8 {
                                       sel0: address.2)
     }
 }
+
+struct RAM64 {
+
+    private var reg = (
+        RAM8(),
+        RAM8(),
+        RAM8(),
+        RAM8(),
+        RAM8(),
+        RAM8(),
+        RAM8(),
+        RAM8()
+    )
+}
+
+struct RAM512 {
+
+    private var reg = (
+        RAM64(),
+        RAM64(),
+        RAM64(),
+        RAM64(),
+        RAM64(),
+        RAM64(),
+        RAM64(),
+        RAM64()
+    )
+}
+
+struct RAM4096 {
+
+    private var reg = (
+        RAM512(),
+        RAM512(),
+        RAM512(),
+        RAM512(),
+        RAM512(),
+        RAM512(),
+        RAM512(),
+        RAM512()
+    )
+}
+
+struct RAM16384 {
+
+    private var reg = (
+        RAM4096(),
+        RAM4096(),
+        RAM4096(),
+        RAM4096(),
+        RAM4096(),
+        RAM4096(),
+        RAM4096(),
+        RAM4096()
+    )
+}
+
