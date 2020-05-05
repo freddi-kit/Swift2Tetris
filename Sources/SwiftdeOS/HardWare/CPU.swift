@@ -8,5 +8,7 @@
 import Foundation
 
 struct CPU {
-    func out(inst: Bit16, inM: Bit16, reset: Bit) {}
+    func out(inst: Bit16, inM: Bit16, reset: Bit) {
+        
+    }
 }

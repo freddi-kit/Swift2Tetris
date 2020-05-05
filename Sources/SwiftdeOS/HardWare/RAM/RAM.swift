@@ -22,8 +22,8 @@ struct Register<B: BitCalculatable> {
     private var out: B = .allLow
     
     mutating func out(in: B, load: Bit) -> B {
-        let out = Plexor.multiPlexor(a: self.out, b: dff.out(in: `in`), sel: self.load)
         defer { self.load = load; self.out = out }
+        let out = Plexor.multiPlexor(a: self.out, b: dff.out(in: `in`), sel: self.load)
         return out
     }
 }
@@ -41,35 +41,30 @@ struct RAM8 {
         Register<Bit16>()
     )
     
-    private var load: Bit = .low
-    private var `in`: Bit16 = .allLow
-    private var address: (Bit, Bit, Bit) = (.low, .low, .low)
-    
     mutating func out(in: Bit16, load: Bit, address: (Bit, Bit, Bit)) -> Bit16 {
-        defer { self.load = load; self.in = `in`; self.address = address}
-        
-        let loadReg = Plexor.deMultiPlexor8way(in: self.load,
-                                               sel2: self.address.2,
-                                               sel1: self.address.1,
-                                               sel0: self.address.0)
+        let loadReg = Plexor.deMultiPlexor8way(in: load,
+                                               sel2: address.0,
+                                               sel1: address.1,
+                                               sel0: address.2)
 
-        return Plexor.multiPlexor8way(a: reg.0.out(in: self.`in`, load: loadReg.a),
-                                      b: reg.1.out(in: self.`in`, load: loadReg.b),
-                                      c: reg.2.out(in: self.`in`, load: loadReg.c),
-                                      d: reg.3.out(in: self.`in`, load: loadReg.d),
-                                      e: reg.4.out(in: self.`in`, load: loadReg.e),
-                                      f: reg.5.out(in: self.`in`, load: loadReg.f),
-                                      g: reg.6.out(in: self.`in`, load: loadReg.g),
-                                      h: reg.7.out(in: self.`in`, load: loadReg.h),
+        return Plexor.multiPlexor8way(a: reg.0.out(in: `in`, load: loadReg.a),
+                                      b: reg.1.out(in: `in`, load: loadReg.b),
+                                      c: reg.2.out(in: `in`, load: loadReg.c),
+                                      d: reg.3.out(in: `in`, load: loadReg.d),
+                                      e: reg.4.out(in: `in`, load: loadReg.e),
+                                      f: reg.5.out(in: `in`, load: loadReg.f),
+                                      g: reg.6.out(in: `in`, load: loadReg.g),
+                                      h: reg.7.out(in: `in`, load: loadReg.h),
                                       sel2: address.0,
                                       sel1: address.1,
                                       sel0: address.2)
     }
 }
 
+// TODO: Make as template
 struct RAM64 {
 
-    private var reg = (
+    private var ram8 = (
         RAM8(),
         RAM8(),
         RAM8(),
@@ -79,47 +74,67 @@ struct RAM64 {
         RAM8(),
         RAM8()
     )
+    
+    mutating func out(in: Bit16, load: Bit, address: (Bit, Bit, Bit, Bit, Bit, Bit)) -> Bit16 {
+        let loadReg = Plexor.deMultiPlexor8way(in: load,
+                                               sel2: address.0,
+                                               sel1: address.1,
+                                               sel0: address.2)
+        
+        return Plexor.multiPlexor8way(a: ram8.0.out(in: `in`, load: loadReg.a, address: (address.3, address.4, address.5)),
+                                      b: ram8.1.out(in: `in`, load: loadReg.b, address: (address.3, address.4, address.5)),
+                                      c: ram8.2.out(in: `in`, load: loadReg.c, address: (address.3, address.4, address.5)),
+                                      d: ram8.3.out(in: `in`, load: loadReg.d, address: (address.3, address.4, address.5)),
+                                      e: ram8.4.out(in: `in`, load: loadReg.e, address: (address.3, address.4, address.5)),
+                                      f: ram8.5.out(in: `in`, load: loadReg.f, address: (address.3, address.4, address.5)),
+                                      g: ram8.6.out(in: `in`, load: loadReg.g, address: (address.3, address.4, address.5)),
+                                      h: ram8.7.out(in: `in`, load: loadReg.h, address: (address.3, address.4, address.5)),
+                                      sel2: address.0,
+                                      sel1: address.1,
+                                      sel0: address.2)
+    }
 }
 
-struct RAM512 {
-
-    private var reg = (
-        RAM64(),
-        RAM64(),
-        RAM64(),
-        RAM64(),
-        RAM64(),
-        RAM64(),
-        RAM64(),
-        RAM64()
-    )
-}
-
-struct RAM4096 {
-
-    private var reg = (
-        RAM512(),
-        RAM512(),
-        RAM512(),
-        RAM512(),
-        RAM512(),
-        RAM512(),
-        RAM512(),
-        RAM512()
-    )
-}
-
-struct RAM16384 {
-
-    private var reg = (
-        RAM4096(),
-        RAM4096(),
-        RAM4096(),
-        RAM4096(),
-        RAM4096(),
-        RAM4096(),
-        RAM4096(),
-        RAM4096()
-    )
-}
-
+//
+//struct RAM512 {
+//
+//    private var reg = (
+//        RAM64(),
+//        RAM64(),
+//        RAM64(),
+//        RAM64(),
+//        RAM64(),
+//        RAM64(),
+//        RAM64(),
+//        RAM64()
+//    )
+//}
+//
+//struct RAM4096 {
+//
+//    private var reg = (
+//        RAM512(),
+//        RAM512(),
+//        RAM512(),
+//        RAM512(),
+//        RAM512(),
+//        RAM512(),
+//        RAM512(),
+//        RAM512()
+//    )
+//}
+//
+//struct RAM16384 {
+//
+//    private var reg = (
+//        RAM4096(),
+//        RAM4096(),
+//        RAM4096(),
+//        RAM4096(),
+//        RAM4096(),
+//        RAM4096(),
+//        RAM4096(),
+//        RAM4096()
+//    )
+//}
+//
