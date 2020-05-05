@@ -41,33 +41,26 @@ struct RAM8 {
         Register<Bit16>()
     )
     
+    private var load: Bit = .low
+    private var `in`: Bit16 = .allLow
+    private var address: (Bit, Bit, Bit) = (.low, .low, .low)
+    
     mutating func out(in: Bit16, load: Bit, address: (Bit, Bit, Bit)) -> Bit16 {
-        defer {
-            let loadReg = Plexor.deMultiPlexor8way(in: load,
-                                                   sel2: address.2,
-                                                   sel1: address.1,
-                                                   sel0: address.0)
-            _ = Plexor.multiPlexor8way(a: reg.0.out(in: `in`, load: loadReg.a),
-                                       b: reg.1.out(in: `in`, load: loadReg.b),
-                                       c: reg.2.out(in: `in`, load: loadReg.c),
-                                       d: reg.3.out(in: `in`, load: loadReg.d),
-                                       e: reg.4.out(in: `in`, load: loadReg.e),
-                                       f: reg.5.out(in: `in`, load: loadReg.f),
-                                       g: reg.6.out(in: `in`, load: loadReg.g),
-                                       h: reg.7.out(in: `in`, load: loadReg.h),
-                                       sel2: address.0,
-                                       sel1: address.1,
-                                       sel0: address.2)
-        }
+        defer { self.load = load; self.in = `in`; self.address = address}
+        
+        let loadReg = Plexor.deMultiPlexor8way(in: self.load,
+                                               sel2: self.address.2,
+                                               sel1: self.address.1,
+                                               sel0: self.address.0)
 
-        return Plexor.multiPlexor8way(a: reg.0.out(in: `in`, load: .low),
-                                      b: reg.1.out(in: `in`, load: .low),
-                                      c: reg.2.out(in: `in`, load: .low),
-                                      d: reg.3.out(in: `in`, load: .low),
-                                      e: reg.4.out(in: `in`, load: .low),
-                                      f: reg.5.out(in: `in`, load: .low),
-                                      g: reg.6.out(in: `in`, load: .low),
-                                      h: reg.7.out(in: `in`, load: .low),
+        return Plexor.multiPlexor8way(a: reg.0.out(in: self.`in`, load: loadReg.a),
+                                      b: reg.1.out(in: self.`in`, load: loadReg.b),
+                                      c: reg.2.out(in: self.`in`, load: loadReg.c),
+                                      d: reg.3.out(in: self.`in`, load: loadReg.d),
+                                      e: reg.4.out(in: self.`in`, load: loadReg.e),
+                                      f: reg.5.out(in: self.`in`, load: loadReg.f),
+                                      g: reg.6.out(in: self.`in`, load: loadReg.g),
+                                      h: reg.7.out(in: self.`in`, load: loadReg.h),
                                       sel2: address.0,
                                       sel1: address.1,
                                       sel0: address.2)
