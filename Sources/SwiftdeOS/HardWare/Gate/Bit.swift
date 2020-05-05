@@ -45,10 +45,7 @@ enum Bit: BitCalculatable {
     }
     
     static func or(x: Bit, y: Bit) -> Bit { nand(x: not(x: x), y: not(x: y)) }
-    
     static func and(x: Bit, y: Bit) -> Bit { Self.not(x: Self.nand(x: x, y: y)) }
-    
     static func not(x: Bit) -> Bit { nand(x: x, y: x) }
-    
     static func xor(x: Bit, y: Bit) -> Bit { and(x: nand(x: and(x: x, y: y), y: or(x: x, y: y)), y: or(x: x, y: y)) }
 }
