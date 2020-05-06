@@ -95,6 +95,20 @@ struct RAM64 {
     }
 }
 
+struct RAM256 {
+
+    private var ram64 = (
+        RAM64(),
+        RAM64(),
+        RAM64(),
+        RAM64()
+    )
+    
+    mutating func out(in: Bit16, load: Bit, address: (Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit)) -> Bit16 {
+       fatalError("Not Implemented")
+    }
+}
+
 //
 //struct RAM512 {
 //
