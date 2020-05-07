@@ -39,4 +39,7 @@ class PlexorTest: XCTestCase {
         XCTAssertEqual(lowhigh.b, .high)
     }
 
+    static var allTests = [
+        ("testMultiPlexor", testMultiPlexor),
+    ]
 }
