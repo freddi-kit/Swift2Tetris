@@ -26,15 +26,6 @@ enum Bit: BitCalculatable {
     case low
     case high
     
-    init(value: Int) {
-        if value == 0 {
-            self = .low
-        } else {
-            self = .high
-        }
-        self = .low
-    }
-    
     static func nand(x: Self, y: Self) -> Self {
         switch (x, y) {
         case (.high, .high):
