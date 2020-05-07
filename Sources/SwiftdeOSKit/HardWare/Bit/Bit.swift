@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol BitCalculatable {
+public protocol BitCalculatable {
     static var allLow: Self { get }
     static var allHigh: Self { get }
     
@@ -18,15 +18,15 @@ protocol BitCalculatable {
     static func xor(x: Self, y: Self) -> Self
 }
 
-enum Bit: BitCalculatable {
+public enum Bit: BitCalculatable {
     
-    static let allLow: Bit = .low
-    static let allHigh: Bit = .high
+    public static let allLow: Bit = .low
+    public static let allHigh: Bit = .high
     
     case low
     case high
     
-    static func nand(x: Self, y: Self) -> Self {
+    public static func nand(x: Self, y: Self) -> Self {
         switch (x, y) {
         case (.high, .high):
             return .low
@@ -35,8 +35,8 @@ enum Bit: BitCalculatable {
         }
     }
     
-    static func or(x: Bit, y: Bit) -> Bit { nand(x: not(x: x), y: not(x: y)) }
-    static func and(x: Bit, y: Bit) -> Bit { Self.not(x: Self.nand(x: x, y: y)) }
-    static func not(x: Bit) -> Bit { nand(x: x, y: x) }
-    static func xor(x: Bit, y: Bit) -> Bit { and(x: nand(x: and(x: x, y: y), y: or(x: x, y: y)), y: or(x: x, y: y)) }
+    public static func or(x: Bit, y: Bit) -> Bit { nand(x: not(x: x), y: not(x: y)) }
+    public static func and(x: Bit, y: Bit) -> Bit { Self.not(x: Self.nand(x: x, y: y)) }
+    public static func not(x: Bit) -> Bit { nand(x: x, y: x) }
+    public static func xor(x: Bit, y: Bit) -> Bit { and(x: nand(x: and(x: x, y: y), y: or(x: x, y: y)), y: or(x: x, y: y)) }
 }
