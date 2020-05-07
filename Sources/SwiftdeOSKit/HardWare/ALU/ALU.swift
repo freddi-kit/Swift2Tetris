@@ -9,7 +9,7 @@ import Foundation
 
 enum ALU {
     // TODO: implement zr and ng
-    func alu(x: Bit16, y: Bit16, zx: Bit, nx: Bit, zy: Bit, ny: Bit, f: Bit, no: Bit) -> Bit16 {
+    static func alu(x: Bit16, y: Bit16, zx: Bit, nx: Bit, zy: Bit, ny: Bit, f: Bit, no: Bit) -> Bit16 {
         
         var x = Plexor.multiPlexor(a: x, b: .allLow, sel: zx)
         x = Plexor.multiPlexor(a: x, b: .not(x: x), sel: nx)
