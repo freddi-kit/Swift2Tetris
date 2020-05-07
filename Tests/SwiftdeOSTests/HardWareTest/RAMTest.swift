@@ -40,11 +40,11 @@ class RAMTest: XCTestCase {
             (Bit.high, Bit.high, Bit.low),
             (Bit.high, Bit.high, Bit.high)]
         
-        for address in addAddressList {
+        for writeAddress in addAddressList {
             var ram8 = RAM8()
-            let result = ram8.out(in: .allHigh, load: .high, address: address)
+            let result = ram8.out(in: .allHigh, load: .high, address: writeAddress)
 
-            XCTAssertEqual(result.bits.0, .low, "[Not written] Address1 is: \(address)")
+            XCTAssertEqual(result.bits.0, .low, "[Not written] writeAddress is: \(writeAddress)")
             XCTAssertEqual(result.bits.1, .low)
             XCTAssertEqual(result.bits.2, .low)
             XCTAssertEqual(result.bits.3, .low)
@@ -60,10 +60,10 @@ class RAMTest: XCTestCase {
             XCTAssertEqual(result.bits.13, .low)
             XCTAssertEqual(result.bits.14, .low)
             XCTAssertEqual(result.bits.15, .low)
-                    
-            let result2 = ram8.out(in: .allHigh, load: .low, address: address)
+
+            let result2 = ram8.out(in: .allHigh, load: .low, address: writeAddress)
             
-            XCTAssertEqual(result2.bits.0, .high, "Address1 is: \(address)")
+            XCTAssertEqual(result2.bits.0, .high, "writeAddress is: \(writeAddress)")
             XCTAssertEqual(result2.bits.1, .high)
             XCTAssertEqual(result2.bits.2, .high)
             XCTAssertEqual(result2.bits.3, .high)
@@ -83,13 +83,13 @@ class RAMTest: XCTestCase {
             
             var excludedAddressList = addAddressList
             excludedAddressList.remove(at: excludedAddressList.firstIndex { (value) -> Bool in
-                value == address
+                value == writeAddress
             }!)
             
-            for address2 in excludedAddressList {
-                let result = ram8.out(in: .allHigh, load: .low, address: address2)
+            for readAddress in excludedAddressList {
+                let result = ram8.out(in: .allHigh, load: .low, address: readAddress)
                 
-                XCTAssertEqual(result.bits.0, .low, "\nAddress1 is: \(address), \nAddress2 is: \(address2)")
+                XCTAssertEqual(result.bits.0, .low, "\nwriteAddress is: \(writeAddress), \nreadAddress is: \(readAddress)\nAlso, \n\nwrite()\(writeAddress) is :\n\(ram8.out(in: .allHigh, load: .low, address: writeAddress))\n\nread()\(readAddress) is :\n\(ram8.out(in: .allHigh, load: .low, address: writeAddress))")
                 XCTAssertEqual(result.bits.1, .low)
                 XCTAssertEqual(result.bits.2, .low)
                 XCTAssertEqual(result.bits.3, .low)
