@@ -12,7 +12,6 @@ enum Incrementor {
     static func incrementor64(x: Bit16) -> Bit16 {
         Adder.Add16(a: x,
                     b: Bit16(bits: (
-                        .high,
                         .low,
                         .low,
                         .low,
@@ -27,6 +26,7 @@ enum Incrementor {
                         .low,
                         .low,
                         .low,
-                        .low)))
+                        .low,
+                        .high)))
     }
 }
