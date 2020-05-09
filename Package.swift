@@ -1,40 +1,29 @@
-//
-//  File.swift
-//
-//
-//  Created by 秋勇紀 on 2020/05/05.
-//
+// swift-tools-version:5.2
+// The swift-tools-version declares the minimum version of Swift required to build this package.
 
-import Foundation
+import PackageDescription
 
-struct CPU {
-    private var registerA = Register<Bit16>()
-    private var registerD = Register<Bit16>()
-    private var pc = ProgramCounter<Bit15>()
-    
-    mutating func out(inst: Bit16, inM: Bit16, reset: Bit) -> (outM: Bit16, writeM: Bit, addressM: Bit15, pc: Bit15) {
-        let writeM: Bit
-        let outM: Bit16
-        let resultRegisterA = registerA.out(in: inst, load: Bit.not(x: inst.bits.0))
-        let resultRegisterD = registerD.out(in: inst, load: .low)
-        
-        let inputALUx = Plexor.multiPlexor(a: resultRegisterA, b: inM, sel: inst.bits.3)
-
-        let resultALU = ALU.alu(x: resultRegisterD,
-                                y: inputALUx,
-                                zx: inst.bits.4,
-                                nx: inst.bits.5,
-                                zy: inst.bits.6,
-                                ny: inst.bits.7,
-                                f: inst.bits.7,
-                                no: inst.bits.8)
-        
-        _ = registerA.out(in: resultALU, load: Bit.and(x: inst.bits.10, y: inst.bits.0))
-        writeM = Bit.and(x: inst.bits.11, y: inst.bits.0)
-        _ = registerD.out(in: resultALU, load: Bit.and(x: inst.bits.12, y: inst.bits.0))
-
-        outM = resultALU
-        
-        fatalError()
-    }
-}
+let package = Package(
+    name: "SwiftdeOS",
+    products: [
+        .executable(name: "SwiftdeOS", targets: ["SwiftdeOS"]),
+        .library(name: "SwiftdeOSKit", targets: ["SwiftdeOSKit"]),
+    ],
+    dependencies: [
+        // Dependencies declare other packages that this package depends on.
+        // .package(url: /* package url */, from: "1.0.0"),
+    ],
+    targets: [
+        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
+        // Targets can depend on other targets in this package, and on products in packages which this package depends on.
+        .target(
+            name: "SwiftdeOS",
+            dependencies: ["SwiftdeOSKit"]),
+        .target(
+            name: "SwiftdeOSKit",
+            dependencies: []),
+        .testTarget(
+            name: "SwiftdeOSTests",
+            dependencies: ["SwiftdeOSKit"]),
+    ]
+)
