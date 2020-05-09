@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol BitCalculatable {
+public protocol BitCalculatable where Self: Equatable {
     static var allLow: Self { get }
     static var allHigh: Self { get }
     

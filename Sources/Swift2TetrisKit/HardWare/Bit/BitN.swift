@@ -138,7 +138,27 @@ struct Bit15: BitCalculatable {
                          .low,
                          .low,
                          .high)))
-     }
+    }
+    
+    
+    // Can be used only test
+    static func == (lhs: Bit15, rhs: Bit15) -> Bool {
+        lhs.bits.0 == rhs.bits.0
+            && lhs.bits.1 == rhs.bits.1
+            && lhs.bits.2 == rhs.bits.2
+            && lhs.bits.3 == rhs.bits.3
+            && lhs.bits.4 == rhs.bits.4
+            && lhs.bits.5 == rhs.bits.5
+            && lhs.bits.6 == rhs.bits.6
+            && lhs.bits.7 == rhs.bits.7
+            && lhs.bits.8 == rhs.bits.8
+            && lhs.bits.9 == rhs.bits.9
+            && lhs.bits.10 == rhs.bits.10
+            && lhs.bits.11 == rhs.bits.11
+            && lhs.bits.12 == rhs.bits.12
+            && lhs.bits.13 == rhs.bits.13
+            && lhs.bits.14 == rhs.bits.14
+    }
 }
 
 
@@ -278,5 +298,26 @@ public struct Bit16: BitCalculatable {
                          .low,
                          .low,
                          .high)))
-     }
+    }
+    
+    
+    // Can be used only test
+    public static func == (lhs: Bit16, rhs: Bit16) -> Bool {
+        lhs.bits.0 == rhs.bits.0
+            && lhs.bits.1 == rhs.bits.1
+            && lhs.bits.2 == rhs.bits.2
+            && lhs.bits.3 == rhs.bits.3
+            && lhs.bits.4 == rhs.bits.4
+            && lhs.bits.5 == rhs.bits.5
+            && lhs.bits.6 == rhs.bits.6
+            && lhs.bits.7 == rhs.bits.7
+            && lhs.bits.8 == rhs.bits.8
+            && lhs.bits.9 == rhs.bits.9
+            && lhs.bits.10 == rhs.bits.10
+            && lhs.bits.11 == rhs.bits.11
+            && lhs.bits.12 == rhs.bits.12
+            && lhs.bits.13 == rhs.bits.13
+            && lhs.bits.14 == rhs.bits.14
+            && lhs.bits.15 == rhs.bits.15
+    }
 }
