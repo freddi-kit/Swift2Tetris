@@ -9,7 +9,7 @@ import XCTest
 @testable import SwiftdeOSKit
 
 class PlexorTest: XCTestCase {
-
+    
     func testMultiPlexor() throws {
         XCTAssertEqual(Plexor.multiPlexor(a: Bit.low, b: Bit.low, sel: .low), .low)
         XCTAssertEqual(Plexor.multiPlexor(a: Bit.low, b: Bit.high, sel: .low), .low)
