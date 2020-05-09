@@ -1,0 +1,24 @@
+//
+//  Computer.swift
+//  SwiftdeOS
+//
+//  Created by 秋勇紀 on 2020/05/10.
+//
+
+import Foundation
+
+struct Computer {
+    private var cpu = CPU()
+    private var memory = RAM32k()
+    private var nextInstAdress: Bit15 = .allLow
+    private var nextInM: Bit16 = .allLow
+
+    private let instructionRAM: RAM32k
+    
+    mutating func oneClock(reset: Bit) {
+        let nextInstruction = instructionRAM.out(in: .allLow, load: .low, address: nextInstAdress.bits)
+        let out = cpu.out(inst: nextInstruction, inM: nextInM, reset: reset)
+        nextInstAdress = out.pc
+        nextInM = memory.out(in: out.outM, load: out.writeM, address: out.addressM.bits)
+    }
+}
