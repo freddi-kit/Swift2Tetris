@@ -61,143 +61,143 @@ class PlexorTest: XCTestCase {
         XCTAssertEqual(lowhigh.b, .high)
     }
     
-    func testDeMultiPlexor4way1() throws {
-
-        let testBitResultBit = [
-            ((Bit.low, Bit.low, Bit.low), (Bit.low, Bit.low, Bit.low, Bit.low)),
-            ((Bit.low, Bit.low, Bit.high), (Bit.low, Bit.low, Bit.low, Bit.low)),
-            ((Bit.low, Bit.high, Bit.low), (Bit.low, Bit.low, Bit.low, Bit.low)),
-            ((Bit.low, Bit.high, Bit.high), (Bit.low, Bit.low, Bit.low, Bit.low)),
-        ]
-
-        for (input, expectResult) in testBitResultBit {
-            let result = Plexor.deMultiPlexor4way(in: input.0, sel1: input.1, sel0: input.2)
-            XCTAssertTrue(
-                (result.0 == expectResult.0) && (result.1 == expectResult.1) && (result.2 == expectResult.2) && (result.3 == expectResult.3)
-            , """
-            Input        : \(input)
-            Expect Result: \(expectResult)
-            Actual Result: \(result)
-            """)
-        }
-    }
-    
-    func testDeMultiPlexor4way2() throws {
-
-        let testBitResultBit = [
-            ((Bit.high, Bit.low, Bit.low), (Bit.high, Bit.low, Bit.low, Bit.low)),
-            ((Bit.high, Bit.low, Bit.high), (Bit.low, Bit.high, Bit.low, Bit.low)),
-            ((Bit.high, Bit.high, Bit.low), (Bit.low, Bit.low, Bit.high, Bit.low)),
-            ((Bit.high, Bit.high, Bit.high), (Bit.low, Bit.low, Bit.low, Bit.high)),
-        ]
-
-        for (input, expectResult) in testBitResultBit {
-            let result = Plexor.deMultiPlexor4way(in: input.0, sel1: input.1, sel0: input.2)
-            XCTAssertTrue(
-                (result.0 == expectResult.0) && (result.1 == expectResult.1) && (result.2 == expectResult.2) && (result.3 == expectResult.3)
-            , """
-            Input        : \(input)
-            Expect Result: \(expectResult)
-            Actual Result: \(result)
-            """)
-        }
-    }
-    
-    func testDeMultiPlexor8way1() throws {
-
-        let testBitResultBit = [
-            ((Bit.low, Bit.low, Bit.low, Bit.low), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low)),
-            ((Bit.low, Bit.low, Bit.low, Bit.high), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low)),
-            ((Bit.low, Bit.low, Bit.high, Bit.low), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low)),
-            ((Bit.low, Bit.low, Bit.high, Bit.high), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low)),
-        ]
-
-        for (input, expectResult) in testBitResultBit {
-            let result = Plexor.deMultiPlexor8way(in: input.0, sel2: input.1, sel1: input.2, sel0: input.3)
-            XCTAssertTrue(
-                (result.0 == expectResult.0) && (result.1 == expectResult.1) && (result.2 == expectResult.2) && (result.3 == expectResult.3) && (result.4 == expectResult.4)
-            , """
-            Input        : \(input)
-            Expect Result: \(expectResult)
-            Actual Result: \(result)
-            """)
-        }
-    }
-    
-    func testDeMultiPlexor8way2() throws {
-
-        let testBitResultBit = [
-            ((Bit.low, Bit.high, Bit.low, Bit.low), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low)),
-            ((Bit.low, Bit.high, Bit.low, Bit.high), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low)),
-            ((Bit.low, Bit.high, Bit.high, Bit.low), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low)),
-            ((Bit.low, Bit.high, Bit.high, Bit.high), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low)),
-        ]
-
-        for (input, expectResult) in testBitResultBit {
-            let result = Plexor.deMultiPlexor8way(in: input.0, sel2: input.1, sel1: input.2, sel0: input.3)
-            XCTAssertTrue(
-                (result.0 == expectResult.0) && (result.1 == expectResult.1) && (result.2 == expectResult.2) && (result.3 == expectResult.3) && (result.4 == expectResult.4)
-            , """
-            Input        : \(input)
-            Expect Result: \(expectResult)
-            Actual Result: \(result)
-            """)
-        }
-    }
-    
-    func testDeMultiPlexor8way3() throws {
-
-        let testBitResultBit = [
-            ((Bit.high, Bit.low, Bit.low, Bit.low), (Bit.high, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low)),
-            ((Bit.high, Bit.low, Bit.low, Bit.high), (Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low)),
-            ((Bit.high, Bit.low, Bit.high, Bit.low), (Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low)),
-            ((Bit.high, Bit.low, Bit.high, Bit.high), (Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.low)),
-        ]
-
-        for (input, expectResult) in testBitResultBit {
-            let result = Plexor.deMultiPlexor8way(in: input.0, sel2: input.1, sel1: input.2, sel0: input.3)
-            XCTAssertTrue(
-                (result.0 == expectResult.0) && (result.1 == expectResult.1) && (result.2 == expectResult.2) && (result.3 == expectResult.3) && (result.4 == expectResult.4)
-            , """
-            Input        : \(input)
-            Expect Result: \(expectResult)
-            Actual Result: \(result)
-            """)
-        }
-    }
-    
-    func testDeMultiPlexor8way4() throws {
-
-        let testBitResultBit = [
-            ((Bit.high, Bit.high, Bit.low, Bit.low), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low)),
-            ((Bit.high, Bit.high, Bit.low, Bit.high), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low)),
-            ((Bit.high, Bit.high, Bit.high, Bit.low), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low)),
-            ((Bit.high, Bit.high, Bit.high, Bit.high), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high)),
-        ]
-
-        for (input, expectResult) in testBitResultBit {
-            let result = Plexor.deMultiPlexor8way(in: input.0, sel2: input.1, sel1: input.2, sel0: input.3)
-            XCTAssertTrue(
-                (result.0 == expectResult.0) && (result.1 == expectResult.1) && (result.2 == expectResult.2) && (result.3 == expectResult.3) && (result.4 == expectResult.4)
-            , """
-            Input        : \(input)
-            Expect Result: \(expectResult)
-            Actual Result: \(result)
-            """)
-        }
-    }
+//    func testDeMultiPlexor4way1() throws {
+//
+//        let testBitResultBit = [
+//            ((Bit.low, Bit.low, Bit.low), (Bit.low, Bit.low, Bit.low, Bit.low)),
+//            ((Bit.low, Bit.low, Bit.high), (Bit.low, Bit.low, Bit.low, Bit.low)),
+//            ((Bit.low, Bit.high, Bit.low), (Bit.low, Bit.low, Bit.low, Bit.low)),
+//            ((Bit.low, Bit.high, Bit.high), (Bit.low, Bit.low, Bit.low, Bit.low)),
+//        ]
+//
+//        for (input, expectResult) in testBitResultBit {
+//            let result = Plexor.deMultiPlexor4way(in: input.0, sel1: input.1, sel0: input.2)
+//            XCTAssertTrue(
+//                (result.0 == expectResult.0) && (result.1 == expectResult.1) && (result.2 == expectResult.2) && (result.3 == expectResult.3)
+//            , """
+//            Input        : \(input)
+//            Expect Result: \(expectResult)
+//            Actual Result: \(result)
+//            """)
+//        }
+//    }
+//
+//    func testDeMultiPlexor4way2() throws {
+//
+//        let testBitResultBit = [
+//            ((Bit.high, Bit.low, Bit.low), (Bit.high, Bit.low, Bit.low, Bit.low)),
+//            ((Bit.high, Bit.low, Bit.high), (Bit.low, Bit.high, Bit.low, Bit.low)),
+//            ((Bit.high, Bit.high, Bit.low), (Bit.low, Bit.low, Bit.high, Bit.low)),
+//            ((Bit.high, Bit.high, Bit.high), (Bit.low, Bit.low, Bit.low, Bit.high)),
+//        ]
+//
+//        for (input, expectResult) in testBitResultBit {
+//            let result = Plexor.deMultiPlexor4way(in: input.0, sel1: input.1, sel0: input.2)
+//            XCTAssertTrue(
+//                (result.0 == expectResult.0) && (result.1 == expectResult.1) && (result.2 == expectResult.2) && (result.3 == expectResult.3)
+//            , """
+//            Input        : \(input)
+//            Expect Result: \(expectResult)
+//            Actual Result: \(result)
+//            """)
+//        }
+//    }
+//
+//    func testDeMultiPlexor8way1() throws {
+//
+//        let testBitResultBit = [
+//            ((Bit.low, Bit.low, Bit.low, Bit.low), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low)),
+//            ((Bit.low, Bit.low, Bit.low, Bit.high), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low)),
+//            ((Bit.low, Bit.low, Bit.high, Bit.low), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low)),
+//            ((Bit.low, Bit.low, Bit.high, Bit.high), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low)),
+//        ]
+//
+//        for (input, expectResult) in testBitResultBit {
+//            let result = Plexor.deMultiPlexor8way(in: input.0, sel2: input.1, sel1: input.2, sel0: input.3)
+//            XCTAssertTrue(
+//                (result.0 == expectResult.0) && (result.1 == expectResult.1) && (result.2 == expectResult.2) && (result.3 == expectResult.3) && (result.4 == expectResult.4)
+//            , """
+//            Input        : \(input)
+//            Expect Result: \(expectResult)
+//            Actual Result: \(result)
+//            """)
+//        }
+//    }
+//
+//    func testDeMultiPlexor8way2() throws {
+//
+//        let testBitResultBit = [
+//            ((Bit.low, Bit.high, Bit.low, Bit.low), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low)),
+//            ((Bit.low, Bit.high, Bit.low, Bit.high), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low)),
+//            ((Bit.low, Bit.high, Bit.high, Bit.low), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low)),
+//            ((Bit.low, Bit.high, Bit.high, Bit.high), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low)),
+//        ]
+//
+//        for (input, expectResult) in testBitResultBit {
+//            let result = Plexor.deMultiPlexor8way(in: input.0, sel2: input.1, sel1: input.2, sel0: input.3)
+//            XCTAssertTrue(
+//                (result.0 == expectResult.0) && (result.1 == expectResult.1) && (result.2 == expectResult.2) && (result.3 == expectResult.3) && (result.4 == expectResult.4)
+//            , """
+//            Input        : \(input)
+//            Expect Result: \(expectResult)
+//            Actual Result: \(result)
+//            """)
+//        }
+//    }
+//
+//    func testDeMultiPlexor8way3() throws {
+//
+//        let testBitResultBit = [
+//            ((Bit.high, Bit.low, Bit.low, Bit.low), (Bit.high, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low)),
+//            ((Bit.high, Bit.low, Bit.low, Bit.high), (Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low)),
+//            ((Bit.high, Bit.low, Bit.high, Bit.low), (Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low)),
+//            ((Bit.high, Bit.low, Bit.high, Bit.high), (Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.low)),
+//        ]
+//
+//        for (input, expectResult) in testBitResultBit {
+//            let result = Plexor.deMultiPlexor8way(in: input.0, sel2: input.1, sel1: input.2, sel0: input.3)
+//            XCTAssertTrue(
+//                (result.0 == expectResult.0) && (result.1 == expectResult.1) && (result.2 == expectResult.2) && (result.3 == expectResult.3) && (result.4 == expectResult.4)
+//            , """
+//            Input        : \(input)
+//            Expect Result: \(expectResult)
+//            Actual Result: \(result)
+//            """)
+//        }
+//    }
+//
+//    func testDeMultiPlexor8way4() throws {
+//
+//        let testBitResultBit = [
+//            ((Bit.high, Bit.high, Bit.low, Bit.low), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low)),
+//            ((Bit.high, Bit.high, Bit.low, Bit.high), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low)),
+//            ((Bit.high, Bit.high, Bit.high, Bit.low), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low)),
+//            ((Bit.high, Bit.high, Bit.high, Bit.high), (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high)),
+//        ]
+//
+//        for (input, expectResult) in testBitResultBit {
+//            let result = Plexor.deMultiPlexor8way(in: input.0, sel2: input.1, sel1: input.2, sel0: input.3)
+//            XCTAssertTrue(
+//                (result.0 == expectResult.0) && (result.1 == expectResult.1) && (result.2 == expectResult.2) && (result.3 == expectResult.3) && (result.4 == expectResult.4)
+//            , """
+//            Input        : \(input)
+//            Expect Result: \(expectResult)
+//            Actual Result: \(result)
+//            """)
+//        }
+//    }
     
     
     
     static var allTests = [
         ("testMultiPlexor", testMultiPlexor),
-        ("testDeMultiPlexor", testDeMultiPlexor),
-        ("testDeMultiPlexor4way1", testDeMultiPlexor4way1),
-        ("testDeMultiPlexor4way2", testDeMultiPlexor4way2),
-        ("testDeMultiPlexor8way1", testDeMultiPlexor8way1),
-        ("testDeMultiPlexor8way2", testDeMultiPlexor8way2),
-        ("testDeMultiPlexor8way3", testDeMultiPlexor8way3),
-        ("testDeMultiPlexor8way4", testDeMultiPlexor8way4),
+//        ("testDeMultiPlexor", testDeMultiPlexor),
+//        ("testDeMultiPlexor4way1", testDeMultiPlexor4way1),
+//        ("testDeMultiPlexor4way2", testDeMultiPlexor4way2),
+//        ("testDeMultiPlexor8way1", testDeMultiPlexor8way1),
+//        ("testDeMultiPlexor8way2", testDeMultiPlexor8way2),
+//        ("testDeMultiPlexor8way3", testDeMultiPlexor8way3),
+//        ("testDeMultiPlexor8way4", testDeMultiPlexor8way4),
 
     ]
 }
