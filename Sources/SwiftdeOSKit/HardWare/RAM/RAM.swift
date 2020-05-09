@@ -28,7 +28,7 @@ struct Register<B: BitCalculatable> {
     }
 }
 
-struct RAM8 {
+class RAM8 {
     
     private var reg = (
         Register<Bit16>(),
@@ -41,7 +41,7 @@ struct RAM8 {
         Register<Bit16>()
     )
     
-    mutating func out(in: Bit16, load: Bit, address: (Bit, Bit, Bit)) -> Bit16 {
+    func out(in: Bit16, load: Bit, address: (Bit, Bit, Bit)) -> Bit16 {
         let loadReg = Plexor.deMultiPlexor8way(in: load,
                                                sel2: address.0,
                                                sel1: address.1,
@@ -62,7 +62,7 @@ struct RAM8 {
 }
 
 // TODO: Make as template
-struct RAM64 {
+class RAM64 {
 
     private var ram8 = (
         RAM8(),
@@ -75,7 +75,7 @@ struct RAM64 {
         RAM8()
     )
     
-    mutating func out(in: Bit16, load: Bit, address: (Bit, Bit, Bit, Bit, Bit, Bit)) -> Bit16 {
+    func out(in: Bit16, load: Bit, address: (Bit, Bit, Bit, Bit, Bit, Bit)) -> Bit16 {
         let loadReg = Plexor.deMultiPlexor8way(in: load,
                                                sel2: address.0,
                                                sel1: address.1,
@@ -96,61 +96,61 @@ struct RAM64 {
                                       sel0: address.2)
     }
 }
-//
-//struct RAM256 {
-//
-//    private var ram64 = (
-//        RAM64(),
-//        RAM64(),
-//        RAM64(),
-//        RAM64()
-//    )
-//    
-//    mutating func out(in: Bit16, load: Bit, address: (Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit)) -> Bit16 {
-//       fatalError("Not Implemented")
-//    }
-//}
 
-//
-//struct RAM512 {
-//
-//    private var reg = (
-//        RAM64(),
-//        RAM64(),
-//        RAM64(),
-//        RAM64(),
-//        RAM64(),
-//        RAM64(),
-//        RAM64(),
-//        RAM64()
-//    )
-//}
-//
-//struct RAM4096 {
-//
-//    private var reg = (
-//        RAM512(),
-//        RAM512(),
-//        RAM512(),
-//        RAM512(),
-//        RAM512(),
-//        RAM512(),
-//        RAM512(),
-//        RAM512()
-//    )
-//}
-//
-//struct RAM16384 {
-//
-//    private var reg = (
-//        RAM4096(),
-//        RAM4096(),
-//        RAM4096(),
-//        RAM4096(),
-//        RAM4096(),
-//        RAM4096(),
-//        RAM4096(),
-//        RAM4096()
-//    )
-//}
-//
+class RAM512 {
+
+    private var reg = (
+        RAM64(),
+        RAM64(),
+        RAM64(),
+        RAM64(),
+        RAM64(),
+        RAM64(),
+        RAM64(),
+        RAM64()
+    )
+}
+
+class RAM4096 {
+
+    private var reg = (
+        RAM512(),
+        RAM512(),
+        RAM512(),
+        RAM512(),
+        RAM512(),
+        RAM512(),
+        RAM512(),
+        RAM512()
+    )
+}
+
+class RAM16384 {
+
+    private var reg = (
+        RAM4096(),
+        RAM4096(),
+        RAM4096(),
+        RAM4096(),
+        RAM4096(),
+        RAM4096(),
+        RAM4096(),
+        RAM4096()
+    )
+}
+
+
+class RAM32k {
+
+    private var reg = (
+        RAM16384(),
+        RAM16384(),
+        RAM16384(),
+        RAM16384(),
+        RAM16384(),
+        RAM16384(),
+        RAM16384(),
+        RAM16384()
+    )
+}
+
