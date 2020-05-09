@@ -426,7 +426,6 @@ class PlexorTest: XCTestCase {
     
     static var allTests = [
         ("testMultiPlexor", testMultiPlexor),
-        ("testDeMultiPlexor", testDeMultiPlexor),
         ("testDeMultiPlexor4way", testMultiPlexor4way),
         ("testDeMultiPlexor8way", testMultiPlexor8way),
         ("testDeMultiPlexor", testDeMultiPlexor),
@@ -436,6 +435,5 @@ class PlexorTest: XCTestCase {
         ("testDeMultiPlexor8way2", testDeMultiPlexor8way2),
         ("testDeMultiPlexor8way3", testDeMultiPlexor8way3),
         ("testDeMultiPlexor8way4", testDeMultiPlexor8way4),
-
     ]
 }

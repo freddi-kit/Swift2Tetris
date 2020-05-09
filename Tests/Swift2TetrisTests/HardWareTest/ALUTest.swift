@@ -87,6 +87,7 @@ class ALUTest: XCTestCase {
     
     static var allTests = [
         ("testALUZero", testALUZero),
+        ("testALUOne", testALUOne),
         ("testALUMinusOne", testALUMinusOne),
         ("testALUx", testALUx),
         ("testALUy", testALUy),

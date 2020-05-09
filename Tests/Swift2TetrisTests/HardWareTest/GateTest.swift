@@ -45,5 +45,9 @@ final class GateTest: XCTestCase {
     
     static var allTests = [
         ("testGate", testNotGate),
+        ("testNotGate", testNotGate),
+        ("testOrGate", testOrGate),
+        ("testAndGate", testAndGate),
+        ("testXorGate", testXorGate),
     ]
 }
