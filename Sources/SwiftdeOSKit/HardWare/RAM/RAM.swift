@@ -81,6 +81,8 @@ struct RAM64 {
                                                sel1: address.1,
                                                sel0: address.2)
         
+        
+        
         return Plexor.multiPlexor8way(a: ram8.0.out(in: `in`, load: loadReg.a, address: (address.3, address.4, address.5)),
                                       b: ram8.1.out(in: `in`, load: loadReg.b, address: (address.3, address.4, address.5)),
                                       c: ram8.2.out(in: `in`, load: loadReg.c, address: (address.3, address.4, address.5)),
@@ -94,20 +96,20 @@ struct RAM64 {
                                       sel0: address.2)
     }
 }
-
-struct RAM256 {
-
-    private var ram64 = (
-        RAM64(),
-        RAM64(),
-        RAM64(),
-        RAM64()
-    )
-    
-    mutating func out(in: Bit16, load: Bit, address: (Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit)) -> Bit16 {
-       fatalError("Not Implemented")
-    }
-}
+//
+//struct RAM256 {
+//
+//    private var ram64 = (
+//        RAM64(),
+//        RAM64(),
+//        RAM64(),
+//        RAM64()
+//    )
+//    
+//    mutating func out(in: Bit16, load: Bit, address: (Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit)) -> Bit16 {
+//       fatalError("Not Implemented")
+//    }
+//}
 
 //
 //struct RAM512 {
