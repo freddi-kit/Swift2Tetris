@@ -1,12 +1,12 @@
 //
 //  CPUTest.swift
-//  SwiftdeOSTests
+//  Swift2TetrisTests
 //
 //  Created by 秋勇紀 on 2020/05/10.
 //
 
 import XCTest
-@testable import SwiftdeOSKit
+@testable import Swift2TetrisKit
 
 class CPUTest: XCTestCase {
 

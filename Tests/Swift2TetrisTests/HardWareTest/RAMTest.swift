@@ -1,12 +1,12 @@
 //
 //  RAMTest.swift
-//  SwiftdeOSTests
+//  Swift2TetrisTests
 //
 //  Created by 秋勇紀 on 2020/05/08.
 //
 
 import XCTest
-@testable import SwiftdeOSKit
+@testable import Swift2TetrisKit
 
 class RAMTest: XCTestCase {
     
@@ -105,7 +105,7 @@ class RAMTest: XCTestCase {
         ]
         
         for writeAddress in addAddressList {
-            var ram8 = RAM64()
+            let ram8 = RAM64()
             let input = (
                 random(),
                 random(),

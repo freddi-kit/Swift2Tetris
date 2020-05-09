@@ -7,7 +7,7 @@ Implementing Nand2Tetris(コンピュータシステムの理論と実装) on Sw
 
 ```shell
 $ swift package generate-xcodeproj  
-$ open SwiftdeOS.xcodeproj
+$ open Swift2Tetris.xcodeproj
 ```
 
 ## Implemented List

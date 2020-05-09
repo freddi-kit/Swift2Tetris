@@ -1,7 +1,7 @@
 import XCTest
 
-import SwiftdeOSTests
+import Swift2TetrisTests
 
 var tests = [XCTestCaseEntry]()
-tests += SwiftdeOSTests.allTests()
+tests += Swift2TetrisTests.allTests()
 XCTMain(tests)

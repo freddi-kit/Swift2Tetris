@@ -58,7 +58,7 @@ struct CPU {
 
         outM = resultALU.out
         
-        fatalError()
+        // fatalError()
         
         return (outM: outM, writeM: writeM, addressM: addressM, pc: pc)
     }

@@ -82,15 +82,15 @@ class RAM64 {
                                                sel0: address.2)
         
         
-        let address = (address.3, address.4, address.5)
-        return Plexor.multiPlexor8way(a: ram8.0.out(in: `in`, load: loadReg.a, address: address),
-                                      b: ram8.1.out(in: `in`, load: loadReg.b, address: address),
-                                      c: ram8.2.out(in: `in`, load: loadReg.c, address: address),
-                                      d: ram8.3.out(in: `in`, load: loadReg.d, address: address),
-                                      e: ram8.4.out(in: `in`, load: loadReg.e, address: address),
-                                      f: ram8.5.out(in: `in`, load: loadReg.f, address: address),
-                                      g: ram8.6.out(in: `in`, load: loadReg.g, address: address),
-                                      h: ram8.7.out(in: `in`, load: loadReg.h, address: address),
+        let addressPart = (address.3, address.4, address.5)
+        return Plexor.multiPlexor8way(a: ram8.0.out(in: `in`, load: loadReg.a, address: addressPart),
+                                      b: ram8.1.out(in: `in`, load: loadReg.b, address: addressPart),
+                                      c: ram8.2.out(in: `in`, load: loadReg.c, address: addressPart),
+                                      d: ram8.3.out(in: `in`, load: loadReg.d, address: addressPart),
+                                      e: ram8.4.out(in: `in`, load: loadReg.e, address: addressPart),
+                                      f: ram8.5.out(in: `in`, load: loadReg.f, address: addressPart),
+                                      g: ram8.6.out(in: `in`, load: loadReg.g, address: addressPart),
+                                      h: ram8.7.out(in: `in`, load: loadReg.h, address: addressPart),
                                       sel2: address.0,
                                       sel1: address.1,
                                       sel0: address.2)
@@ -117,15 +117,15 @@ class RAM512 {
                                                sel0: address.2)
         
         
-        let address = (address.3, address.4, address.5, address.6, address.7, address.8)
-        return Plexor.multiPlexor8way(a: ram64.0.out(in: `in`, load: loadReg.a, address: address),
-                                      b: ram64.1.out(in: `in`, load: loadReg.b, address: address),
-                                      c: ram64.2.out(in: `in`, load: loadReg.c, address: address),
-                                      d: ram64.3.out(in: `in`, load: loadReg.d, address: address),
-                                      e: ram64.4.out(in: `in`, load: loadReg.e, address: address),
-                                      f: ram64.5.out(in: `in`, load: loadReg.f, address: address),
-                                      g: ram64.6.out(in: `in`, load: loadReg.g, address: address),
-                                      h: ram64.7.out(in: `in`, load: loadReg.h, address: address),
+        let addressPart = (address.3, address.4, address.5, address.6, address.7, address.8)
+        return Plexor.multiPlexor8way(a: ram64.0.out(in: `in`, load: loadReg.a, address: addressPart),
+                                      b: ram64.1.out(in: `in`, load: loadReg.b, address: addressPart),
+                                      c: ram64.2.out(in: `in`, load: loadReg.c, address: addressPart),
+                                      d: ram64.3.out(in: `in`, load: loadReg.d, address: addressPart),
+                                      e: ram64.4.out(in: `in`, load: loadReg.e, address: addressPart),
+                                      f: ram64.5.out(in: `in`, load: loadReg.f, address: addressPart),
+                                      g: ram64.6.out(in: `in`, load: loadReg.g, address: addressPart),
+                                      h: ram64.7.out(in: `in`, load: loadReg.h, address: addressPart),
                                       sel2: address.0,
                                       sel1: address.1,
                                       sel0: address.2)
@@ -152,16 +152,16 @@ class RAM4096 {
                                                sel0: address.2)
         
         
-        let address = (address.3, address.4, address.5, address.6, address.7, address.8, address.9, address.10, address.11)
+        let addressPart = (address.3, address.4, address.5, address.6, address.7, address.8, address.9, address.10, address.11)
         
-        return Plexor.multiPlexor8way(a: ram512.0.out(in: `in`, load: loadReg.a, address: address),
-                                      b: ram512.1.out(in: `in`, load: loadReg.b, address: address),
-                                      c: ram512.2.out(in: `in`, load: loadReg.c, address: address),
-                                      d: ram512.3.out(in: `in`, load: loadReg.d, address: address),
-                                      e: ram512.4.out(in: `in`, load: loadReg.e, address: address),
-                                      f: ram512.5.out(in: `in`, load: loadReg.f, address: address),
-                                      g: ram512.6.out(in: `in`, load: loadReg.g, address: address),
-                                      h: ram512.7.out(in: `in`, load: loadReg.h, address: address),
+        return Plexor.multiPlexor8way(a: ram512.0.out(in: `in`, load: loadReg.a, address: addressPart),
+                                      b: ram512.1.out(in: `in`, load: loadReg.b, address: addressPart),
+                                      c: ram512.2.out(in: `in`, load: loadReg.c, address: addressPart),
+                                      d: ram512.3.out(in: `in`, load: loadReg.d, address: addressPart),
+                                      e: ram512.4.out(in: `in`, load: loadReg.e, address: addressPart),
+                                      f: ram512.5.out(in: `in`, load: loadReg.f, address: addressPart),
+                                      g: ram512.6.out(in: `in`, load: loadReg.g, address: addressPart),
+                                      h: ram512.7.out(in: `in`, load: loadReg.h, address: addressPart),
                                       sel2: address.0,
                                       sel1: address.1,
                                       sel0: address.2)
@@ -183,12 +183,12 @@ class RAM16384 {
                                                sel0: address.1)
         
         
-        let address = (address.2, address.3, address.4, address.5, address.6, address.7, address.8, address.9, address.10, address.11, address.12, address.13)
+        let addressPart = (address.2, address.3, address.4, address.5, address.6, address.7, address.8, address.9, address.10, address.11, address.12, address.13)
         
-        return Plexor.multiPlexor4way(a: ram4096.0.out(in: `in`, load: loadReg.a, address: address),
-                                      b: ram4096.1.out(in: `in`, load: loadReg.b, address: address),
-                                      c: ram4096.2.out(in: `in`, load: loadReg.c, address: address),
-                                      d: ram4096.3.out(in: `in`, load: loadReg.d, address: address),
+        return Plexor.multiPlexor4way(a: ram4096.0.out(in: `in`, load: loadReg.a, address: addressPart),
+                                      b: ram4096.1.out(in: `in`, load: loadReg.b, address: addressPart),
+                                      c: ram4096.2.out(in: `in`, load: loadReg.c, address: addressPart),
+                                      d: ram4096.3.out(in: `in`, load: loadReg.d, address: addressPart),
                                       sel1: address.0,
                                       sel0: address.1)
     }
@@ -209,10 +209,10 @@ public class RAM32k {
                                            sel: address.0)
         
         
-        let address = (address.1, address.2, address.3, address.4, address.5, address.6, address.7, address.8, address.9, address.10, address.11, address.12, address.13, address.14)
+        let addressPart = (address.1, address.2, address.3, address.4, address.5, address.6, address.7, address.8, address.9, address.10, address.11, address.12, address.13, address.14)
         
-        return Plexor.multiPlexor(a: ram16k.0.out(in: `in`, load: loadReg.a, address: address),
-                                  b: ram16k.0.out(in: `in`, load: loadReg.b, address: address),
+        return Plexor.multiPlexor(a: ram16k.0.out(in: `in`, load: loadReg.a, address: addressPart),
+                                  b: ram16k.0.out(in: `in`, load: loadReg.b, address: addressPart),
                                   sel: address.0)
     }
 }

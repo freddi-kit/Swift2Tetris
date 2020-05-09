@@ -4,10 +4,10 @@
 import PackageDescription
 
 let package = Package(
-    name: "SwiftdeOS",
+    name: "Swift2Tetris",
     products: [
-        .executable(name: "SwiftdeOS", targets: ["SwiftdeOS"]),
-        .library(name: "SwiftdeOSKit", targets: ["SwiftdeOSKit"]),
+        .executable(name: "Swift2Tetris", targets: ["Swift2Tetris"]),
+        .library(name: "Swift2TetrisKit", targets: ["Swift2TetrisKit"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -17,13 +17,13 @@ let package = Package(
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
-            name: "SwiftdeOS",
-            dependencies: ["SwiftdeOSKit"]),
+            name: "Swift2Tetris",
+            dependencies: ["Swift2TetrisKit"]),
         .target(
-            name: "SwiftdeOSKit",
+            name: "Swift2TetrisKit",
             dependencies: []),
         .testTarget(
-            name: "SwiftdeOSTests",
-            dependencies: ["SwiftdeOSKit"]),
+            name: "Swift2TetrisTests",
+            dependencies: ["Swift2TetrisKit"]),
     ]
 )
