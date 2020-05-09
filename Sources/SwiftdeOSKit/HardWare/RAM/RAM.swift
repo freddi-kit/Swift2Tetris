@@ -195,14 +195,16 @@ class RAM16384 {
 }
 
 
-class RAM32k {
+public class RAM32k {
 
     private var ram16k = (
         RAM16384(),
         RAM16384()
     )
     
-    func out(in: Bit16, load: Bit, address: (Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit)) -> Bit16 {
+    public init() {}
+    
+    public func out(in: Bit16, load: Bit, address: (Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit)) -> Bit16 {
         let loadReg = Plexor.deMultiPlexor(in: load,
                                            sel: address.0)
         

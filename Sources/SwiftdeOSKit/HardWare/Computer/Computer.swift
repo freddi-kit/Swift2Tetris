@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Computer {
+public struct Computer {
     private var cpu = CPU()
     private var memory = RAM32k()
     private var nextInstAdress: Bit15 = .allLow
@@ -15,7 +15,12 @@ struct Computer {
 
     private let instructionRAM: RAM32k
     
-    mutating func oneClock(reset: Bit) {
+    public init(instructionRAM: RAM32k) {
+        self.instructionRAM = instructionRAM
+    }
+    
+    public mutating func oneClock(reset: Bit) {
+        print("[Computer] one clock")
         let nextInstruction = instructionRAM.out(in: .allLow, load: .low, address: nextInstAdress.bits)
         let out = cpu.out(inst: nextInstruction, inM: nextInM, reset: reset)
         nextInstAdress = out.pc
