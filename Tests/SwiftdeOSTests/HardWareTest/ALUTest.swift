@@ -14,7 +14,8 @@ class ALUTest: XCTestCase {
     private let testBit2 = Bit16(bits: (.high, .low, .high, .low, .high, .low, .low, .high, .low, .high, .low, .low, .low, .low, .high, .high))
 
     func testALUZero() throws {
-        let result1 = ALU.alu(x: testBit1, y: testBit2, zx: .high, nx: .low, zy: .high, ny: .low, f: .high, no: .low)
+        let alu = ALU.alu(x: testBit1, y: testBit2, zx: .high, nx: .low, zy: .high, ny: .low, f: .high, no: .low)
+        let result1 = alu.out
         let expected = Bit16.allLow.bits
         XCTAssertEqual(result1.bits.0, expected.0)
         XCTAssertEqual(result1.bits.1, expected.1)
@@ -32,10 +33,14 @@ class ALUTest: XCTestCase {
         XCTAssertEqual(result1.bits.13, expected.13)
         XCTAssertEqual(result1.bits.14, expected.14)
         XCTAssertEqual(result1.bits.15, expected.15)
+        
+        XCTAssertEqual(alu.ng, .low)
+        XCTAssertEqual(alu.zr, .high)
     }
     
     func testALUOne() throws {
-        let result1 = ALU.alu(x: testBit1, y: testBit2, zx: .high, nx: .high, zy: .high, ny: .high, f: .high, no: .high)
+        let alu = ALU.alu(x: testBit1, y: testBit2, zx: .high, nx: .high, zy: .high, ny: .high, f: .high, no: .high)
+        let result1 = alu.out
         let expected = (Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high)
         XCTAssertEqual(result1.bits.0, expected.0)
         XCTAssertEqual(result1.bits.1, expected.1)
@@ -53,10 +58,15 @@ class ALUTest: XCTestCase {
         XCTAssertEqual(result1.bits.13, expected.13)
         XCTAssertEqual(result1.bits.14, expected.14)
         XCTAssertEqual(result1.bits.15, expected.15)
+        
+        XCTAssertEqual(alu.ng, .low)
+        XCTAssertEqual(alu.zr, .low)
     }
 
     func testALUMinusOne() throws {
-        let result1 = ALU.alu(x: testBit1, y: testBit2, zx: .high, nx: .high, zy: .high, ny: .low, f: .high, no: .low)
+        let alu = ALU.alu(x: testBit1, y: testBit2, zx: .high, nx: .high, zy: .high, ny: .low, f: .high, no: .low)
+        let result1 = alu.out
+
         let expected = (Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high)
         XCTAssertEqual(result1.bits.0, expected.0)
         XCTAssertEqual(result1.bits.1, expected.1)
@@ -74,10 +84,13 @@ class ALUTest: XCTestCase {
         XCTAssertEqual(result1.bits.13, expected.13)
         XCTAssertEqual(result1.bits.14, expected.14)
         XCTAssertEqual(result1.bits.15, expected.15)
+        
+        XCTAssertEqual(alu.ng, .high)
+        XCTAssertEqual(alu.zr, .low)
     }
 
     func testALUx() throws {
-        let result1 = ALU.alu(x: testBit1, y: testBit2, zx: .low, nx: .low, zy: .high, ny: .high, f: .low, no: .low)
+        let result1 = ALU.alu(x: testBit1, y: testBit2, zx: .low, nx: .low, zy: .high, ny: .high, f: .low, no: .low).out
         let expected = testBit1.bits
         XCTAssertEqual(result1.bits.0, expected.0)
         XCTAssertEqual(result1.bits.1, expected.1)
@@ -98,7 +111,7 @@ class ALUTest: XCTestCase {
     }
     
     func testALUy() throws {
-        let result1 = ALU.alu(x: testBit1, y: testBit2, zx: .high, nx: .high, zy: .low, ny: .low, f: .low, no: .low)
+        let result1 = ALU.alu(x: testBit1, y: testBit2, zx: .high, nx: .high, zy: .low, ny: .low, f: .low, no: .low).out
         let expected = testBit2.bits
         XCTAssertEqual(result1.bits.0, expected.0)
         XCTAssertEqual(result1.bits.1, expected.1)
@@ -119,7 +132,7 @@ class ALUTest: XCTestCase {
     }
     
     func testALUnotX() throws {
-        let result1 = ALU.alu(x: testBit1, y: testBit2, zx: .low, nx: .low, zy: .high, ny: .high, f: .low, no: .high)
+        let result1 = ALU.alu(x: testBit1, y: testBit2, zx: .low, nx: .low, zy: .high, ny: .high, f: .low, no: .high).out
         let expected = Bit16.not(x: testBit1).bits
         XCTAssertEqual(result1.bits.0, expected.0)
         XCTAssertEqual(result1.bits.1, expected.1)
@@ -140,7 +153,7 @@ class ALUTest: XCTestCase {
     }
 
     func testALUnotY() throws {
-        let result1 = ALU.alu(x: testBit1, y: testBit2, zx: .high, nx: .high, zy: .low, ny: .low, f: .low, no: .high)
+        let result1 = ALU.alu(x: testBit1, y: testBit2, zx: .high, nx: .high, zy: .low, ny: .low, f: .low, no: .high).out
         let expected = Bit16.not(x: testBit2).bits
         XCTAssertEqual(result1.bits.0, expected.0)
         XCTAssertEqual(result1.bits.1, expected.1)
@@ -161,7 +174,7 @@ class ALUTest: XCTestCase {
     }
     
     func testALUincrementX() throws {
-        let result1 = ALU.alu(x: testBit1, y: testBit2, zx: .low, nx: .high, zy: .high, ny: .high, f: .high, no: .high)
+        let result1 = ALU.alu(x: testBit1, y: testBit2, zx: .low, nx: .high, zy: .high, ny: .high, f: .high, no: .high).out
         let expected = Bit16.incrementor(x: testBit1).bits
         XCTAssertEqual(result1.bits.0, expected.0)
         XCTAssertEqual(result1.bits.1, expected.1)
@@ -182,7 +195,7 @@ class ALUTest: XCTestCase {
     }
     
     func testALUOr() throws {
-        let result1 = ALU.alu(x: testBit1, y: testBit2, zx: .low, nx: .high, zy: .low, ny: .high, f: .low, no: .high)
+        let result1 = ALU.alu(x: testBit1, y: testBit2, zx: .low, nx: .high, zy: .low, ny: .high, f: .low, no: .high).out
         let expected = Bit16.or(x: testBit1, y: testBit2).bits
         XCTAssertEqual(result1.bits.0, expected.0)
         XCTAssertEqual(result1.bits.1, expected.1)
@@ -203,7 +216,7 @@ class ALUTest: XCTestCase {
     }
     
     func testALUAnd() throws {
-        let result1 = ALU.alu(x: testBit1, y: testBit2, zx: .low, nx: .low, zy: .low, ny: .low, f: .low, no: .low)
+        let result1 = ALU.alu(x: testBit1, y: testBit2, zx: .low, nx: .low, zy: .low, ny: .low, f: .low, no: .low).out
         let expected = Bit16.and(x: testBit1, y: testBit2).bits
         XCTAssertEqual(result1.bits.0, expected.0)
         XCTAssertEqual(result1.bits.1, expected.1)
