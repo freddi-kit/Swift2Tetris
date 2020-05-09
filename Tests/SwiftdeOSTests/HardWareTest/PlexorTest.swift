@@ -21,17 +21,253 @@ class PlexorTest: XCTestCase {
         XCTAssertEqual(Plexor.multiPlexor(a: Bit.high, b: Bit.high, sel: .high), .high)
     }
 
-    func testMultiPlexor4Way() throws {
+    func testMultiPlexor4way() throws {
 
-        let testBitResultBit: [((Bit, Bit, Bit, Bit, Bit, Bit), (Bit))] = [
-            ((Bit.high, Bit.high, Bit.high, Bit.high, Bit.low, Bit.low), (Bit.high)),
-            ((Bit.high, Bit.high, Bit.high, Bit.high, Bit.low, Bit.high), (Bit.high)),
-            ((Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.low), (Bit.high)),
-            ((Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high), (Bit.high)),
+        let testBitResultBit = [
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high), Bit.low),
+            
+            ((Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high), Bit.high),
+            
+            ((Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.low), Bit.high),
+            ((Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.high), Bit.low),
+            
+            ((Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.low), Bit.high),
+            ((Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.high), Bit.high),
+            
+            ((Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.high), Bit.high),
+            ((Bit.low, Bit.high, Bit.low, Bit.low, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.high, Bit.low, Bit.low, Bit.high, Bit.high), Bit.low),
+            
+            ((Bit.low, Bit.high, Bit.low, Bit.high, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.high, Bit.low, Bit.high, Bit.low, Bit.high), Bit.high),
+            ((Bit.low, Bit.high, Bit.low, Bit.high, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.high, Bit.low, Bit.high, Bit.high, Bit.high), Bit.high),
+            
+            ((Bit.low, Bit.high, Bit.high, Bit.low, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.high, Bit.high, Bit.low, Bit.low, Bit.high), Bit.high),
+            ((Bit.low, Bit.high, Bit.high, Bit.low, Bit.high, Bit.low), Bit.high),
+            ((Bit.low, Bit.high, Bit.high, Bit.low, Bit.high, Bit.high), Bit.low),
+            
+            ((Bit.low, Bit.high, Bit.high, Bit.high, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.high, Bit.high, Bit.high, Bit.low, Bit.high), Bit.high),
+            ((Bit.low, Bit.high, Bit.high, Bit.high, Bit.high, Bit.low), Bit.high),
+            ((Bit.low, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high), Bit.high),
+            
+            ((Bit.high, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low), Bit.high),
+            ((Bit.high, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high), Bit.low),
+            ((Bit.high, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low), Bit.low),
+            ((Bit.high, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high), Bit.low),
+            
+            ((Bit.high, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low), Bit.high),
+            ((Bit.high, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high), Bit.low),
+            ((Bit.high, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low), Bit.low),
+            ((Bit.high, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high), Bit.high),
+            
+            ((Bit.high, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low), Bit.high),
+            ((Bit.high, Bit.low, Bit.high, Bit.low, Bit.low, Bit.high), Bit.low),
+            ((Bit.high, Bit.low, Bit.high, Bit.low, Bit.high, Bit.low), Bit.high),
+            ((Bit.high, Bit.low, Bit.high, Bit.low, Bit.high, Bit.high), Bit.low),
+            
+            ((Bit.high, Bit.low, Bit.high, Bit.high, Bit.low, Bit.low), Bit.high),
+            ((Bit.high, Bit.low, Bit.high, Bit.high, Bit.low, Bit.high), Bit.low),
+            ((Bit.high, Bit.low, Bit.high, Bit.high, Bit.high, Bit.low), Bit.high),
+            ((Bit.high, Bit.low, Bit.high, Bit.high, Bit.high, Bit.high), Bit.high),
+            
+            ((Bit.high, Bit.high, Bit.low, Bit.low, Bit.low, Bit.low), Bit.high),
+            ((Bit.high, Bit.high, Bit.low, Bit.low, Bit.low, Bit.high), Bit.high),
+            ((Bit.high, Bit.high, Bit.low, Bit.low, Bit.high, Bit.low), Bit.low),
+            ((Bit.high, Bit.high, Bit.low, Bit.low, Bit.high, Bit.high), Bit.low),
+            
+            ((Bit.high, Bit.high, Bit.low, Bit.high, Bit.low, Bit.low), Bit.high),
+            ((Bit.high, Bit.high, Bit.low, Bit.high, Bit.low, Bit.high), Bit.high),
+            ((Bit.high, Bit.high, Bit.low, Bit.high, Bit.high, Bit.low), Bit.low),
+            ((Bit.high, Bit.high, Bit.low, Bit.high, Bit.high, Bit.high), Bit.high),
+            
+            ((Bit.high, Bit.high, Bit.high, Bit.low, Bit.low, Bit.low), Bit.high),
+            ((Bit.high, Bit.high, Bit.high, Bit.low, Bit.low, Bit.high), Bit.high),
+            ((Bit.high, Bit.high, Bit.high, Bit.low, Bit.high, Bit.low), Bit.high),
+            ((Bit.high, Bit.high, Bit.high, Bit.low, Bit.high, Bit.high), Bit.low),
+            
+            ((Bit.high, Bit.high, Bit.high, Bit.high, Bit.low, Bit.low), Bit.high),
+            ((Bit.high, Bit.high, Bit.high, Bit.high, Bit.low, Bit.high), Bit.high),
+            ((Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.low), Bit.high),
+            ((Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high), Bit.high),
         ]
 
         for (input, expectResult) in testBitResultBit {
             let result = Plexor.multiPlexor4way(a: input.0, b: input.1, c: input.2, d: input.3, sel1: input.4, sel0: input.5)
+            XCTAssertTrue(result == expectResult
+            , """
+            Input        : \(input)
+            Expect Result: \(expectResult)
+            Actual Result: \(result)
+            """)
+        }
+    }
+    
+    func testMultiPlexor8way() throws {
+
+        let testBitResultBit = [
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high), Bit.low),
+            
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.high), Bit.high),
+            
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.high, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.high, Bit.low), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.high, Bit.high), Bit.low),
+            
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.high, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.high, Bit.low), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high), Bit.high),
+            
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high), Bit.low),
+            
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.low, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.low, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.low, Bit.high, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.high, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.high, Bit.low, Bit.high), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.high, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.high, Bit.high, Bit.high), Bit.high),
+            
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.low, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.low, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.low, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.low, Bit.high, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.high, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.high, Bit.low, Bit.high), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.high, Bit.high, Bit.low), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.high, Bit.high, Bit.high), Bit.low),
+            
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.low, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.low, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.low, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.low, Bit.high, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.high, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.high, Bit.low, Bit.high), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.low), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high), Bit.high),
+
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high), Bit.low),
+            
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.low), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.high), Bit.high),
+            
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.low, Bit.low, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.low, Bit.low, Bit.high, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.low, Bit.high, Bit.low, Bit.low), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.low, Bit.high, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.low, Bit.high, Bit.high, Bit.low), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.low, Bit.high, Bit.high, Bit.high), Bit.low),
+            
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.high, Bit.low, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.high, Bit.low, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.high, Bit.low, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.high, Bit.low, Bit.high, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.high, Bit.high, Bit.low, Bit.low), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.high, Bit.high, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.high, Bit.high, Bit.high, Bit.low), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high), Bit.high),
+            
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.low, Bit.low, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.low, Bit.low, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.low, Bit.low, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.low, Bit.high, Bit.low, Bit.low), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.low, Bit.high, Bit.low, Bit.high), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high), Bit.low),
+            
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.high, Bit.low, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.high, Bit.low, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.high, Bit.low, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.high, Bit.low, Bit.high, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.high, Bit.high, Bit.low, Bit.low), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.high, Bit.high, Bit.low, Bit.high), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.high, Bit.high, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.low, Bit.high, Bit.high, Bit.high, Bit.high), Bit.high),
+            
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.low, Bit.low, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.low, Bit.low, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.low, Bit.low, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.low, Bit.low, Bit.high, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.low, Bit.high, Bit.low, Bit.low), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.low, Bit.high, Bit.low, Bit.high), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.low, Bit.high, Bit.high, Bit.low), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.low, Bit.high, Bit.high, Bit.high), Bit.low),
+            
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.high, Bit.low, Bit.low, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.high, Bit.low, Bit.low, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.high, Bit.low, Bit.high, Bit.low), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.high, Bit.low, Bit.high, Bit.high), Bit.low),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.low, Bit.low), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.low, Bit.high), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.low), Bit.high),
+            ((Bit.low, Bit.low, Bit.low, Bit.low, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high), Bit.high),
+
+            ((Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high, Bit.high), Bit.high),
+        ]
+
+        for (input, expectResult) in testBitResultBit {
+            let result = Plexor.multiPlexor8way(a: input.0, b: input.1, c: input.2, d: input.3, e: input.4, f: input.5, g: input.6, h: input.7, sel2: input.8, sel1: input.9, sel0: input.10)
             XCTAssertTrue(result == expectResult
             , """
             Input        : \(input)
@@ -190,6 +426,9 @@ class PlexorTest: XCTestCase {
     
     static var allTests = [
         ("testMultiPlexor", testMultiPlexor),
+        ("testDeMultiPlexor", testDeMultiPlexor),
+        ("testDeMultiPlexor4way", testMultiPlexor4way),
+        ("testDeMultiPlexor8way", testMultiPlexor8way),
         ("testDeMultiPlexor", testDeMultiPlexor),
         ("testDeMultiPlexor4way1", testDeMultiPlexor4way1),
         ("testDeMultiPlexor4way2", testDeMultiPlexor4way2),

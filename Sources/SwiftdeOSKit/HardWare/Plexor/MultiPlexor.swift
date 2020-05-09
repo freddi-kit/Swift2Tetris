@@ -45,7 +45,7 @@ extension Plexor {
     // 1 1 1 h
     static func multiPlexor8way<X: BitCalculatable>(a: X, b: X, c: X, d: X, e: X, f: X, g: X, h: X, sel2: Bit, sel1: Bit, sel0: Bit) -> X {
         multiPlexor(a: multiPlexor4way(a: a, b: b, c: c, d: d, sel1: sel1, sel0: sel0),
-                    b: multiPlexor4way(a: e, b: f, c: c, d: d, sel1: sel1, sel0: sel0), sel: sel2)
+                    b: multiPlexor4way(a: e, b: f, c: g, d: h, sel1: sel1, sel0: sel0), sel: sel2)
     }
     
 }
