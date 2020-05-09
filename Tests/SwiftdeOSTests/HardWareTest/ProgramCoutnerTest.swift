@@ -19,7 +19,7 @@ class ProgramCoutnerTest: XCTestCase {
     }
     
     func testPC() throws {
-        var pc = ProgramCounter()
+        var pc = ProgramCounter<Bit16>()
         
         let input = (
             random(),
@@ -103,7 +103,7 @@ class ProgramCoutnerTest: XCTestCase {
         XCTAssertEqual(result3.bits.15, input.15)
         
         let _ = pc.out(in: .allLow, inc: .high, load: .low, reset: .low)
-        let incrementedInput = Incrementor.incrementor64(x: Bit16(bits: input)).bits
+        let incrementedInput = Bit16.incrementor(x: Bit16(bits: input)).bits
         
         let result4 = pc.out(in: .allLow, inc: .low, load: .low, reset: .low)
         

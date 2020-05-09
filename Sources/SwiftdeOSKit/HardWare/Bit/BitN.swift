@@ -9,6 +9,7 @@ import Foundation
 
 // TODO: make as template
 struct Bit16: BitCalculatable {
+    
     static let allLow: Bit16 = Bit16(bits: (.low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low))
     static let allHigh: Bit16 = Bit16(bits: (.high, .high, .high, .high, .high, .high, .high, .high, .high, .high, .high, .high, .high, .high, .high, .high))
     
@@ -123,4 +124,25 @@ struct Bit16: BitCalculatable {
             )
         )
     }
+    
+    static func incrementor(x: Bit16) -> Bit16 {
+         Adder.Add16(a: x,
+                     b: Bit16(bits: (
+                         .low,
+                         .low,
+                         .low,
+                         .low,
+                         .low,
+                         .low,
+                         .low,
+                         .low,
+                         .low,
+                         .low,
+                         .low,
+                         .low,
+                         .low,
+                         .low,
+                         .low,
+                         .high)))
+     }
 }

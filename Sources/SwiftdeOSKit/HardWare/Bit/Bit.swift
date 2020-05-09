@@ -16,6 +16,7 @@ public protocol BitCalculatable {
     static func and(x: Self, y: Self) -> Self
     static func not(x: Self) -> Self
     static func xor(x: Self, y: Self) -> Self
+    static func incrementor(x: Self) -> Self
 }
 
 public enum Bit: BitCalculatable {
@@ -39,4 +40,5 @@ public enum Bit: BitCalculatable {
     public static func and(x: Bit, y: Bit) -> Bit { Self.not(x: Self.nand(x: x, y: y)) }
     public static func not(x: Bit) -> Bit { nand(x: x, y: x) }
     public static func xor(x: Bit, y: Bit) -> Bit { and(x: nand(x: and(x: x, y: y), y: or(x: x, y: y)), y: or(x: x, y: y)) }
+    public static func incrementor(x: Bit) -> Bit { xor(x: x, y: x) }
 }

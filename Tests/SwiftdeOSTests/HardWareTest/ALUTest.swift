@@ -162,7 +162,7 @@ class ALUTest: XCTestCase {
     
     func testALUincrementX() throws {
         let result1 = ALU.alu(x: testBit1, y: testBit2, zx: .low, nx: .high, zy: .high, ny: .high, f: .high, no: .high)
-        let expected = Incrementor.incrementor64(x: testBit1).bits
+        let expected = Bit16.incrementor(x: testBit1).bits
         XCTAssertEqual(result1.bits.0, expected.0)
         XCTAssertEqual(result1.bits.1, expected.1)
         XCTAssertEqual(result1.bits.2, expected.2)
