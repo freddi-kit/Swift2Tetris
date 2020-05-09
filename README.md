@@ -1,4 +1,4 @@
-# SwiftdeOS
+# Swift2Tetris
 
 ## About it
 Implementing Nand2Tetris(コンピュータシステムの理論と実装) on Swift.
