@@ -17,7 +17,7 @@ enum ALU {
         var y = Plexor.multiPlexor(a: y, b: .allLow, sel: zy)
         y = Plexor.multiPlexor(a: y, b: .not(x: y), sel: ny)
         
-        var out = Plexor.multiPlexor(a: Adder.Add16(a: x, b: y), b: .and(x: x, y: y), sel: f)
+        var out = Plexor.multiPlexor(a: .and(x: x, y: y), b: Adder.Add16(a: x, b: y), sel: f)
         out = Plexor.multiPlexor(a: out, b: .not(x: out), sel: no)
         
         return out
