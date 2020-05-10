@@ -212,7 +212,7 @@ public class RAM32k {
         let addressPart = (address.1, address.2, address.3, address.4, address.5, address.6, address.7, address.8, address.9, address.10, address.11, address.12, address.13, address.14)
         
         return Plexor.multiPlexor(a: ram16k.0.out(in: `in`, load: loadReg.a, address: addressPart),
-                                  b: ram16k.0.out(in: `in`, load: loadReg.b, address: addressPart),
+                                  b: ram16k.1.out(in: `in`, load: loadReg.b, address: addressPart),
                                   sel: address.0)
     }
 }
