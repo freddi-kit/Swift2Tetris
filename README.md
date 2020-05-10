@@ -22,3 +22,5 @@ $ open Swift2Tetris.xcodeproj
 - [x] ALU
 - [x] CPU
 
+### Software
+- [x] Assembler
