@@ -6,8 +6,9 @@
 //
 
 import XCTest
-@testable import Swift2TetrisKit
+@testable import Swift2TetrisHardwareKit
 
+/// Copy  from `CPU.cmp`
 class CPUTest: XCTestCase {
 
     
@@ -106,8 +107,7 @@ class CPUTest: XCTestCase {
         XCTAssertEqual(result17.pc, Bit15(bits: (.low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .high, .low, .high, .low, .high)))
         XCTAssertEqual(result17.addressM, Bit15(bits: (.low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .high, .low, .high, .low, .high)))
     }
-    
-     
+
     var allTests = [
         ("testCPU", testCPU)
     ]

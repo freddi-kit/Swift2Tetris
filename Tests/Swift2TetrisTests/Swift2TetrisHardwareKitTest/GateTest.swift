@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import Swift2TetrisKit
+@testable import Swift2TetrisHardwareKit
     
 final class GateTest: XCTestCase {
     

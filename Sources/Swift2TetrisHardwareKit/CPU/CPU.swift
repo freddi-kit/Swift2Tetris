@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  CPU.swift
 //
 //
 //  Created by 秋勇紀 on 2020/05/05.

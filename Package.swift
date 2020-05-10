@@ -7,7 +7,8 @@ let package = Package(
     name: "Swift2Tetris",
     products: [
         .executable(name: "Swift2Tetris", targets: ["Swift2Tetris"]),
-        .library(name: "Swift2TetrisKit", targets: ["Swift2TetrisKit"]),
+        .library(name: "Swift2TetrisSoftwareKit", targets: ["Swift2TetrisSoftwareKit"]),
+        .library(name: "Swift2TetrisHardwareKit", targets: ["Swift2TetrisHardwareKit"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -18,12 +19,15 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "Swift2Tetris",
-            dependencies: ["Swift2TetrisKit"]),
+            dependencies: ["Swift2TetrisHardwareKit", "Swift2TetrisSoftwareKit"]),
         .target(
-            name: "Swift2TetrisKit",
+            name: "Swift2TetrisHardwareKit",
+            dependencies: []),
+        .target(
+            name: "Swift2TetrisSoftwareKit",
             dependencies: []),
         .testTarget(
             name: "Swift2TetrisTests",
-            dependencies: ["Swift2TetrisKit"]),
+            dependencies: ["Swift2TetrisHardwareKit", "Swift2TetrisSoftwareKit"]),
     ]
 )
