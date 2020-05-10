@@ -79,7 +79,34 @@ class CPUTest: XCTestCase {
         XCTAssertEqual(result12.writeM, .low)
         XCTAssertEqual(result12.pc, Bit15(bits: (.low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .high, .high, .high, .low)))
         XCTAssertEqual(result12.addressM, Bit15(bits: (.low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .high, .high, .high, .low)))
+        
+        let result13 = cpu.out(inst: Bit16(bits: (.high, .high, .high, .low, .high, .high, .low, .high, .high, .high, .high, .low, .low, .low, .low, .low)), inM:  Bit16(bits: (.low, .low, .high, .low, .high, .low, .high, .high, .low, .high, .high, .low, .low, .high, .high, .high)), reset: .low)
+        XCTAssertEqual(result13.writeM, .low)
+        XCTAssertEqual(result13.pc, Bit15.incrementor(x: Bit15(bits: (.low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .high, .high, .high, .low))))
+        XCTAssertEqual(result13.addressM, Bit15(bits: (.low, .low, .low, .low, .low, .high, .high, .high, .high, .high, .low, .low, .high, .high, .high)))
+
+        let result14 = cpu.out(inst: Bit16(bits: (.high, .high, .high, .low, .low, .low, .high, .high, .low, .low, .low, .low, .high, .low, .low, .low)), inM: Bit16(bits: (.low, .low, .high, .low, .high, .low, .high, .high, .low, .high, .high, .low, .low, .high, .high, .high)), reset: .low)
+        XCTAssertEqual(result14.writeM, .high)
+        XCTAssertEqual(result14.pc, Bit15.incrementor(x: Bit15.incrementor(x: Bit15(bits: (.low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .high, .high, .high, .low)))))
+        XCTAssertEqual(result14.addressM, Bit15(bits: (.low, .low, .low, .low, .low, .high, .high, .high, .high, .high, .low, .high, .low, .low, .low)))
+        XCTAssertEqual(result14.outM, .allHigh)
+        
+        let result15 = cpu.out(inst: Bit16(bits: (.low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .high, .low, .high, .low, .high)), inM: Bit16(bits: (.low, .low, .high, .low, .high, .low, .high, .high, .low, .high, .high, .low, .low, .high, .high, .high)), reset: .low)
+        XCTAssertEqual(result15.writeM, .low)
+        XCTAssertEqual(result15.pc, Bit15.incrementor(x: Bit15.incrementor(x: Bit15.incrementor(x: Bit15(bits: (.low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .high, .high, .high, .low))))))
+        XCTAssertEqual(result15.addressM, Bit15(bits: (.low, .low, .low, .low, .low, .high, .high, .high, .high, .high, .low, .high, .low, .low, .low)))
+        
+        let result16 = cpu.out(inst: Bit16(bits: (.high, .high, .high, .low, .low, .high, .high, .high, .high, .high, .low, .low, .low, .low, .high, .low)), inM: Bit16(bits: (.low, .low, .high, .low, .high, .low, .high, .high, .low, .high, .high, .low, .low, .high, .high, .high)), reset: .low)
+        XCTAssertEqual(result16.writeM, .low)
+        XCTAssertEqual(result16.pc, Bit15.incrementor(x: Bit15.incrementor(x: Bit15.incrementor(x: Bit15.incrementor(x: Bit15(bits: (.low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .high, .high, .high, .low)))))))
+        XCTAssertEqual(result16.addressM, Bit15(bits: (.low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .high, .low, .high, .low, .high)))
+        
+        let result17 = cpu.out(inst: Bit16(bits: (.low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .high, .low)), inM: Bit16(bits: (.low, .low, .high, .low, .high, .low, .high, .high, .low, .high, .high, .low, .low, .high, .high, .high)), reset: .low)
+        XCTAssertEqual(result17.writeM, .low)
+        XCTAssertEqual(result17.pc, Bit15(bits: (.low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .high, .low, .high, .low, .high)))
+        XCTAssertEqual(result17.addressM, Bit15(bits: (.low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .high, .low, .high, .low, .high)))
     }
+    
      
     var allTests = [
         ("testCPU", testCPU)
