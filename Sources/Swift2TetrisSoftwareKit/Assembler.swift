@@ -139,7 +139,7 @@ public class Assembler {
         case "JLE" :
             jmp = "110"
         case "JMP" :
-            jmp = "110"
+            jmp = "111"
         default:
             fatalError("Cannot Parse \(jmpPart)")
         }
