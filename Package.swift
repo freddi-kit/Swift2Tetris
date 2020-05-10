@@ -28,6 +28,9 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "Swift2TetrisTests",
-            dependencies: ["Swift2TetrisHardwareKit", "Swift2TetrisSoftwareKit"]),
+            dependencies: []),
+        .testTarget(
+            name: "Swift2TetrisHardwareKitTests",
+            dependencies: ["Swift2TetrisHardwareKit"]),
     ]
 )
