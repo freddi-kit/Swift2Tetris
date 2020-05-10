@@ -141,7 +141,14 @@ class RAMTest: XCTestCase {
             for readAddress in excludedAddressList {
                 let result = ram8.out(in: .allHigh, load: .low, address: readAddress)
                 
-                XCTAssertEqual(result, .allLow, "\nwriteAddress is: \(writeAddress), \nreadAddress is: \(readAddress)\nAlso, \n\nwrite()\(writeAddress) is :\n\(ram8.out(in: .allHigh, load: .low, address: writeAddress))\n\nread()\(readAddress) is :\n\(ram8.out(in: .allHigh, load: .low, address: writeAddress))")
+                XCTAssertEqual(result, .allLow,
+                    """
+                    writeAddress is: \(writeAddress),
+                    readAddress is: \(readAddress)
+                    Also,
+                        write()\(writeAddress) is :\(ram8.out(in: .allHigh, load: .low, address: writeAddress))
+                        read()\(readAddress) is :\(ram8.out(in: .allHigh, load: .low, address: writeAddress))
+                    """)
             }
         }
     }
