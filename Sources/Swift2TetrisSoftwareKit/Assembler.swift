@@ -57,6 +57,13 @@ public class Assembler {
             case "THIS": return convertBinary(from: 3)
             default: fatalError()
             }
+        } else if text == "SCREEN" || text == "KBD" {
+            // RESERVED
+            switch text {
+            case "SCREEN": return convertBinary(from: 16384)
+            case "KBD": return convertBinary(from: 24576)
+            default: fatalError()
+            }
         } else {
             // SYMBOL
             if let index = varibleTable.firstIndex(of: text) {
