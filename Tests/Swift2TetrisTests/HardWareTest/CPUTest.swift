@@ -60,4 +60,8 @@ class CPUTest: XCTestCase {
         XCTAssertEqual(result8.pc, Bit15.incrementor(x: Bit15.incrementor(x: Bit15.incrementor(x: Bit15.incrementor(x: Bit15.incrementor(x: Bit15.incrementor(x: Bit15.incrementor(x: Bit15.incrementor(x:.allLow)))))))))
         XCTAssertEqual(result8.addressM, Bit15(bits: (.low, .low, .low, .low, .low, .high, .high, .high, .high, .high, .low, .high, .low, .low, .high)))
     }
+     
+    var allTests = [
+        ("testCPU", testCPU)
+    ]
 }
