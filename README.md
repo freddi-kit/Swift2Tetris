@@ -20,5 +20,5 @@ $ open Swift2Tetris.xcodeproj
 - [x] RAM
 - [x] ProgramCounter
 - [x] ALU
-- [ ] CPU
+- [x] CPU
 
