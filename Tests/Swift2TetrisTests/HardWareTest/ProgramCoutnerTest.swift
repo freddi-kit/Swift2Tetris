@@ -73,6 +73,16 @@ class ProgramCoutnerTest: XCTestCase {
         let result5 = pc.out(in: .allLow, inc: .low, load: .low, reset: .low)
 
         XCTAssertEqual(result5, .allLow, "[Should Not reset]: \(result5)")
+        
+        let _ = pc.out(in: Bit16(bits: input), inc: .high, load: .high, reset: .low)
+        let result6 = pc.out(in: .allLow, inc: .low, load: .low, reset: .low)
+
+        XCTAssertEqual(result6, Bit16(bits: input), "[Should Not increment]: \(result6)")
+        
+        let _ = pc.out(in: Bit16(bits: input), inc: .high, load: .high, reset: .high)
+        let result7 = pc.out(in: .allLow, inc: .low, load: .low, reset: .low)
+
+        XCTAssertEqual(result7, .allLow, "[Should Not increment]: \(result7)")
     }
 
     var allTests = [
