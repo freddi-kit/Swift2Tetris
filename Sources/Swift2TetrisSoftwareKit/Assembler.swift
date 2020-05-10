@@ -7,34 +7,66 @@
 
 import Foundation
 
-public struct Assembler {
+public class Assembler {
+    
+    public init() {}
+    
+    private var varibleTable: [String] = []
+    private var labelTable: [String: Int] = [:]
+    
+    private func convertBinary(from num: Int) -> String {
+        var num = num
+        var answer = [Int].init(unsafeUninitializedCapacity: 15) { (array, count) in
+            for index in 0..<15 {
+                array[index] = 0
+            }
+            count = 15
+        }
+        
+        var startIndex = 14
+        while num > 0 {
+            answer[startIndex] = num % 2
+            num /= 2
+            startIndex -= 1
+        }
+        
+        var result = "0"
+        for index in 0..<15 {
+            result += String(answer[index])
+        }
+        
+        return result
+    }
     
     private func parseAsInitialInstruction(text: String) -> String {
-        if var int = Int(text) {
-            var answer = [Int].init(unsafeUninitializedCapacity: 15) { (array, count) in
-                for index in 0..<15 {
-                    array[index] = 0
-                }
-                count = 15
+        if let num = Int(text) {
+            return convertBinary(from: num)
+        } else if text[text.startIndex] == "R", let num = Int(String(text[text.index(after: text.startIndex)...])) {
+            // REGISTER
+            assert(num >= 0 && num <= 15, "R\(num) is not avaliable")
+            return convertBinary(from: num)
+        } else if text == "SP" || text == "LCL" || text == "ARG" || text == "THIS" {
+            // RESERVED
+            switch text {
+            case "SP": return convertBinary(from: 0)
+            case "LCL": return convertBinary(from: 1)
+            case "ARG": return convertBinary(from: 2)
+            case "THIS": return convertBinary(from: 3)
+            default: fatalError()
             }
-            
-            var startIndex = 14
-            while int > 0 {
-                answer[startIndex] = int % 2
-                int /= 2
-                startIndex -= 1
-            }
-            
-            var result = "0"
-            for index in 0..<15 {
-                result += String(answer[index])
-            }
-            
-            return result
         } else {
-            
+            // SYMBOL
+            if let index = varibleTable.firstIndex(of: text) {
+                return convertBinary(from: index + 16)
+            } else if let index = labelTable[text] {
+                // LABEL
+                return convertBinary(from: index)
+            } else {
+                // NEW SYMBOL
+                varibleTable.append(text)
+                return convertBinary(from: varibleTable.count - 1 + 16)
+            }
         }
-        fatalError()
     }
     
     private func parseDistination(distinationPart: String) -> String {
@@ -110,28 +142,47 @@ public struct Assembler {
     }
     
     private func parseOneline(text: String) -> String {
-        var currentIndex = text.startIndex
-        if text[currentIndex] == "@" {
-            currentIndex = text.index(after: currentIndex)
-            return parseAsInitialInstruction(text: String(text[currentIndex...]))
+        let text = text.trimmingCharacters(in: .whitespaces)
+        
+        if text[text.startIndex] == "@" {
+            let afterAtMarkIndex = text.index(after: text.startIndex)
+            return parseAsInitialInstruction(text: String(text[afterAtMarkIndex...]))
         } else if text.contains("=") {
             let equarlIndex = text.firstIndex(of: "=")!
-            let distinationPart = parseDistination(distinationPart: String(text[currentIndex ..< equarlIndex]))
-            currentIndex = text.index(after: equarlIndex)
-            return "111" + parseCompPart(compPart: String(text[currentIndex...])) + distinationPart + "000"
+            let distinationPart = parseDistination(distinationPart: String(text[text.startIndex ..< equarlIndex]))
+            let afterEqualIndex = text.index(after: equarlIndex)
+            return "111" + parseCompPart(compPart: String(text[afterEqualIndex...])) + distinationPart + "000"
         } else if text.contains(";") {
-           let semiCoronIndex = text.firstIndex(of: ";")!
-            return "111" + parseCompPart(compPart: String(text[..<semiCoronIndex])) + "000" + parseJmpPart(jmpPart: String(text[text.index(after: semiCoronIndex)...]))
+            let semiCoronIndex = text.firstIndex(of: ";")!
+            let afterSemiCoronIndex = text.index(after: semiCoronIndex)
+            return "111" + parseCompPart(compPart: String(text[..<semiCoronIndex])) + "000" + parseJmpPart(jmpPart: String(text[afterSemiCoronIndex...]))
         }
         
         fatalError("Cannot parse \(text)")
     }
     
+    private func handleAsLabel(label: String, line: Int) {
+        guard labelTable[label] == nil, varibleTable.firstIndex(of: label) == nil else {
+            fatalError("Duplicated label \(label)")
+        }
+        labelTable[label] = line
+    }
+    
     public func parse(text: String) -> [String] {
         let instructions = text.components(separatedBy: "\n")
         var assemble: [String] = []
+        var line = 0
         for instruction in instructions {
-            assemble.append(parseOneline(text: instruction))
+            if instruction[instruction.startIndex] == "(" {
+                guard let closeBracketIndex = instruction.firstIndex(of: ")") else {
+                    fatalError("Please close bracket by )")
+                }
+                let label = String(instruction[instruction.index(after: instruction.startIndex)..<closeBracketIndex])
+                handleAsLabel(label: label, line: line)
+            } else {
+                assemble.append(parseOneline(text: instruction))
+                line += 1
+            }
         }
         
         return assemble
