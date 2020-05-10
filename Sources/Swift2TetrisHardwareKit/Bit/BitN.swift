@@ -8,14 +8,14 @@
 import Foundation
 
 // TODO: make as template
-struct Bit15: BitCalculatable {
+public struct Bit15: BitCalculatable {
     
-    static let allLow: Bit15 = Bit15(bits: (.low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low))
-    static let allHigh: Bit15 = Bit15(bits: (.high, .high, .high, .high, .high, .high, .high, .high, .high, .high, .high, .high, .high, .high, .high))
+    public static let allLow: Bit15 = Bit15(bits: (.low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low))
+    public static let allHigh: Bit15 = Bit15(bits: (.high, .high, .high, .high, .high, .high, .high, .high, .high, .high, .high, .high, .high, .high, .high))
     
-    var bits: (Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit)
+    public var bits: (Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit)
     
-    static func nand(x: Bit15, y: Bit15) -> Bit15 {
+    public static func nand(x: Bit15, y: Bit15) -> Bit15 {
         Bit15(bits:(
             Bit.nand(x: x.bits.0, y: y.bits.0),
             Bit.nand(x: x.bits.1, y: y.bits.1),
@@ -36,7 +36,7 @@ struct Bit15: BitCalculatable {
         )
     }
     
-    static func or(x: Bit15, y: Bit15) -> Bit15 {
+    public static func or(x: Bit15, y: Bit15) -> Bit15 {
         Bit15(bits:(
             Bit.or(x: x.bits.0, y: y.bits.0),
             Bit.or(x: x.bits.1, y: y.bits.1),
@@ -57,7 +57,7 @@ struct Bit15: BitCalculatable {
         )
     }
     
-    static func and(x: Bit15, y: Bit15) -> Bit15 {
+    public static func and(x: Bit15, y: Bit15) -> Bit15 {
         Bit15(bits:(
             Bit.and(x: x.bits.0, y: y.bits.0),
             Bit.and(x: x.bits.1, y: y.bits.1),
@@ -78,7 +78,7 @@ struct Bit15: BitCalculatable {
         )
     }
     
-    static func not(x: Bit15) -> Bit15 {
+    public static func not(x: Bit15) -> Bit15 {
         Bit15(bits:(
             Bit.not(x: x.bits.0),
             Bit.not(x: x.bits.1),
@@ -99,7 +99,7 @@ struct Bit15: BitCalculatable {
         )
     }
     
-    static func xor(x: Bit15, y: Bit15) -> Bit15 {
+    public static func xor(x: Bit15, y: Bit15) -> Bit15 {
         Bit15(bits:(
             Bit.xor(x: x.bits.0, y: y.bits.0),
             Bit.xor(x: x.bits.1, y: y.bits.1),
@@ -120,7 +120,7 @@ struct Bit15: BitCalculatable {
         )
     }
     
-    static func incrementor(x: Bit15) -> Bit15 {
+    public static func incrementor(x: Bit15) -> Bit15 {
          Adder.Add15(a: x,
                      b: Bit15(bits: (
                          .low,
@@ -142,7 +142,7 @@ struct Bit15: BitCalculatable {
     
     
     // Can be used only test
-    static func == (lhs: Bit15, rhs: Bit15) -> Bool {
+    public static func == (lhs: Bit15, rhs: Bit15) -> Bool {
         lhs.bits.0 == rhs.bits.0
             && lhs.bits.1 == rhs.bits.1
             && lhs.bits.2 == rhs.bits.2
@@ -163,6 +163,10 @@ struct Bit15: BitCalculatable {
 
 
 public struct Bit16: BitCalculatable {
+    
+    public init(bits: (Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit)) {
+        self.bits = bits
+    }
     
     public static let allLow: Bit16 = Bit16(bits: (.low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low, .low))
     public static let allHigh: Bit16 = Bit16(bits: (.high, .high, .high, .high, .high, .high, .high, .high, .high, .high, .high, .high, .high, .high, .high, .high))
