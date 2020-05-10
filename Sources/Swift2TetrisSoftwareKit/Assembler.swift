@@ -75,9 +75,11 @@ public class Assembler {
     
     private func parseCompPart(compPart: String) -> String {
         let comp: String
-        switch compPart {
+        switch compPart.trimmingCharacters(in: .whitespacesAndNewlines) {
         case "0" :
             comp = "101010"
+        case "1" :
+            comp = "111111"
         case "-1" :
             comp = "111010"
         case "D" :
@@ -106,19 +108,19 @@ public class Assembler {
             comp = "010011"
         case "A-D", "M-D" :
             comp = "000111"
-        case "D&A", "M&A" :
+        case "D&A", "D&M" :
             comp = "000000"
         case "D|A", "D|M" :
             comp = "010101"
         default:
-            fatalError("Cannot Parse \(compPart)")
+            fatalError("Cannot Parse :\"\(compPart)\"")
         }
         return (compPart.contains("M") ? "1" : "0") + comp
     }
     
     private func parseJmpPart(jmpPart: String) -> String {
         let jmp: String
-        switch jmpPart {
+        switch jmpPart.trimmingCharacters(in: .whitespacesAndNewlines) {
         case "null" :
             jmp = "000"
         case "JGT" :
@@ -142,8 +144,6 @@ public class Assembler {
     }
     
     private func parseOneline(text: String) -> String {
-        let text = text.trimmingCharacters(in: .whitespaces)
-        
         if text[text.startIndex] == "@" {
             let afterAtMarkIndex = text.index(after: text.startIndex)
             return parseAsInitialInstruction(text: String(text[afterAtMarkIndex...]))
@@ -171,17 +171,38 @@ public class Assembler {
     public func parse(text: String) -> [String] {
         let instructions = text.components(separatedBy: "\n")
         var assemble: [String] = []
+        
+        
+        // LOOK UP LABEL
         var line = 0
         for instruction in instructions {
+            let instruction = instruction.trimmingCharacters(in: .whitespacesAndNewlines)
+            if instruction.count == 0 { continue }
             if instruction[instruction.startIndex] == "(" {
                 guard let closeBracketIndex = instruction.firstIndex(of: ")") else {
                     fatalError("Please close bracket by )")
                 }
                 let label = String(instruction[instruction.index(after: instruction.startIndex)..<closeBracketIndex])
                 handleAsLabel(label: label, line: line)
+                continue
+            }
+            line += 1
+        }
+        
+        // PARSE INSTUCTION ITSELF
+        for instruction in instructions {
+            var instruction = instruction.trimmingCharacters(in: .whitespacesAndNewlines)
+            if instruction.contains("//") {
+                instruction = String(text[..<text.firstIndex(of: "/")!])
+            }
+            
+            if instruction.count == 0 { continue }
+            if instruction[instruction.startIndex] == "(" {
+                continue
             } else {
-                assemble.append(parseOneline(text: instruction))
-                line += 1
+                let parseResult = parseOneline(text: instruction)
+                assert(parseResult.count == 16, "parsed as not 16bit")
+                assemble.append(parseResult)
             }
         }
         
