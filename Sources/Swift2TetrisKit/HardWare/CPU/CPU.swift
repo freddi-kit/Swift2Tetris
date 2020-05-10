@@ -53,20 +53,20 @@ struct CPU {
                                 resultRegisterA.bits.15))
         
         let jmp = Plexor.multiPlexor8way(a: Bit.low,
-                                         b: Bit.not(x: resultALU.ng),
+                                         b: Bit.and(x: Bit.not(x: resultALU.ng),
+                                                    y: Bit.not(x: resultALU.zr)),
                                          c: resultALU.zr,
-                                         d: Bit.and(x: Bit.not(x: resultALU.ng), y: resultALU.zr),
+                                         d: Bit.not(x: resultALU.ng),
                                          e: resultALU.ng,
                                          f: Bit.not(x: resultALU.zr),
-                                         g: Bit.and(x: resultALU.ng, y: resultALU.zr),
+                                         g: Bit.or(x: resultALU.ng, y: resultALU.zr),
                                          h: Bit.high,
                                          sel2: inst.bits.13,
                                          sel1: inst.bits.14,
                                          sel0: inst.bits.15)
-        let load: Bit = Bit.and(x: jmp,
-                                y: Bit.not(x: inst.bits.0))
-        pc = programCounter.out(in: addressM, inc: .high, load: load, reset: reset)
 
+        let load = Bit.and(x: jmp, y: inst.bits.0)
+        pc = programCounter.out(in: addressM, inc: .high, load: load, reset: reset)
         outM = resultALU.out
                 
         return (outM: outM, writeM: writeM, addressM: addressM, pc: pc)
