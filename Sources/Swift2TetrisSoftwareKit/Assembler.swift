@@ -107,7 +107,7 @@ public class Assembler {
         case "D+1" :
             cmp = "011111"
         case "A+1", "M+1" :
-            cmp = "011111"
+            cmp = "110111"
         case "D-1" :
             cmp = "001110"
         case "A-1", "M-1" :
