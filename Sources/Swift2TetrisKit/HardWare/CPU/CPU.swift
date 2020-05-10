@@ -29,13 +29,12 @@ struct CPU {
                                 nx: inst.bits.5,
                                 zy: inst.bits.6,
                                 ny: inst.bits.7,
-                                f: inst.bits.7,
-                                no: inst.bits.8)
-                
-        // ここらへん完全に回路の都合
+                                f: inst.bits.8,
+                                no: inst.bits.9)
+
         _ = registerA.out(in: resultALU.out, load: Bit.and(x: inst.bits.10, y: inst.bits.0))
         writeM = Bit.and(x: inst.bits.12, y: inst.bits.0)
-        _ = registerD.out(in: resultALU.out, load: Bit.and(x: inst.bits.11, y: Bit.not(x: inst.bits.0)))
+        _ = registerD.out(in: resultALU.out, load: Bit.and(x: inst.bits.11, y: inst.bits.0))
         
         addressM = Bit15(bits: (resultRegisterA.bits.1,
                                 resultRegisterA.bits.2,
