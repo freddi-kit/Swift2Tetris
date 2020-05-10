@@ -11,9 +11,12 @@ public class Assembler {
     
     public init() {}
     
+    // TABLE FOR VARIABLE
     private var varibleTable: [String] = []
+    // TABLE FOR LABEL
     private var labelTable: [String: Int] = [:]
     
+    // CONTERT NUMBER => BINARY NUM
     private func convertBinary(from num: Int) -> String {
         var num = num
         var answer = [Int].init(unsafeUninitializedCapacity: 15) { (array, count) in
@@ -73,49 +76,49 @@ public class Assembler {
         return (distinationPart.contains("A") ? "1" : "0") + (distinationPart.contains("D") ? "1" : "0") + (distinationPart.contains("M") ? "1" : "0")
     }
     
-    private func parseCompPart(compPart: String) -> String {
-        let comp: String
-        switch compPart.trimmingCharacters(in: .whitespacesAndNewlines) {
+    private func parseCmpPart(cmpPart: String) -> String {
+        let cmp: String
+        switch cmpPart.trimmingCharacters(in: .whitespacesAndNewlines) {
         case "0" :
-            comp = "101010"
+            cmp = "101010"
         case "1" :
-            comp = "111111"
+            cmp = "111111"
         case "-1" :
-            comp = "111010"
+            cmp = "111010"
         case "D" :
-            comp = "001100"
+            cmp = "001100"
         case "A", "M" :
-            comp = "110000"
+            cmp = "110000"
         case "!D" :
-            comp = "001101"
+            cmp = "001101"
         case "!A", "!M" :
-            comp = "110001"
+            cmp = "110001"
         case "-D" :
-            comp = "001111"
+            cmp = "001111"
         case "-A", "-M" :
-            comp = "110011"
+            cmp = "110011"
         case "D+1" :
-            comp = "011111"
+            cmp = "011111"
         case "A+1", "M+1" :
-            comp = "011111"
+            cmp = "011111"
         case "D-1" :
-            comp = "001110"
+            cmp = "001110"
         case "A-1", "M-1" :
-            comp = "110010"
+            cmp = "110010"
         case "D+A", "D+M" :
-            comp = "000010"
+            cmp = "000010"
         case "D-A", "D-M" :
-            comp = "010011"
+            cmp = "010011"
         case "A-D", "M-D" :
-            comp = "000111"
+            cmp = "000111"
         case "D&A", "D&M" :
-            comp = "000000"
+            cmp = "000000"
         case "D|A", "D|M" :
-            comp = "010101"
+            cmp = "010101"
         default:
-            fatalError("Cannot Parse :\"\(compPart)\"")
+            fatalError("Cannot Parse :\"\(cmpPart)\"")
         }
-        return (compPart.contains("M") ? "1" : "0") + comp
+        return (cmpPart.contains("M") ? "1" : "0") + cmp
     }
     
     private func parseJmpPart(jmpPart: String) -> String {
@@ -151,11 +154,11 @@ public class Assembler {
             let equarlIndex = text.firstIndex(of: "=")!
             let distinationPart = parseDistination(distinationPart: String(text[text.startIndex ..< equarlIndex]))
             let afterEqualIndex = text.index(after: equarlIndex)
-            return "111" + parseCompPart(compPart: String(text[afterEqualIndex...])) + distinationPart + "000"
+            return "111" + parseCmpPart(cmpPart: String(text[afterEqualIndex...])) + distinationPart + "000"
         } else if text.contains(";") {
             let semiCoronIndex = text.firstIndex(of: ";")!
             let afterSemiCoronIndex = text.index(after: semiCoronIndex)
-            return "111" + parseCompPart(compPart: String(text[..<semiCoronIndex])) + "000" + parseJmpPart(jmpPart: String(text[afterSemiCoronIndex...]))
+            return "111" + parseCmpPart(cmpPart: String(text[..<semiCoronIndex])) + "000" + parseJmpPart(jmpPart: String(text[afterSemiCoronIndex...]))
         }
         
         fatalError("Cannot parse \(text)")
@@ -192,11 +195,13 @@ public class Assembler {
         // PARSE INSTUCTION ITSELF
         for instruction in instructions {
             var instruction = instruction.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            // COMMENT OUT CHECK
             if instruction.contains("//") {
                 instruction = String(text[..<text.firstIndex(of: "/")!])
             }
-            
             if instruction.count == 0 { continue }
+            
             if instruction[instruction.startIndex] == "(" {
                 continue
             } else {
