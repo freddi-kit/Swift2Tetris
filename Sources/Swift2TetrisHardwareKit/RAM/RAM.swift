@@ -97,7 +97,7 @@ class RAM64 {
     }
 }
 
-class RAM512 {
+public class RAM512 {
 
     private var ram64 = (
         RAM64(),
@@ -110,7 +110,7 @@ class RAM512 {
         RAM64()
     )
     
-    func out(in: Bit16, load: Bit, address: (Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit)) -> Bit16 {
+    public func out(in: Bit16, load: Bit, address: (Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit, Bit)) -> Bit16 {
         let loadReg = Plexor.deMultiPlexor8way(in: load,
                                                sel2: address.0,
                                                sel1: address.1,
